@@ -23,6 +23,11 @@ class BlogCategory extends Model
         return $this->morphMany(File::class, 'fileable');
     }
 
+    public function contents()
+    {
+        return $this->belongsToMany(BlogContent::class, 'blog_categories', 'category_id', 'content_id');
+    }
+
 
 
 

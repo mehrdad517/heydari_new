@@ -60,17 +60,10 @@ class LoginController extends Controller
         }
 
         // first time check domain active
-        $domain = Domain::select('android', 'ios', 'maintenance_mode', 'register', 'basket', 'user_dashboard', 'admin_panel')->where('key', $request->get('domain'))->where('status', 1)->first();
-
-        if ( ! $domain ) {
-            return response()->json([
-                'status' => false,
-                'message' => 'دامنه نامعتبر است.'
-            ], 200);
-        }
+        $domain = Domain::select('maintenance_mode','admin_panel')->where('status', 1)->first();
 
         // fetch user with domain
-        if(!Auth::attempt(['mobile' => $request->get('username'), 'password' => $request->get('password'), 'domain' => $request->get('domain')])) {
+        if(!Auth::attempt(['mobile' => $request->get('username'), 'password' => $request->get('password')])) {
             return response()->json([
                 'status' => false,
                 'message' => 'نام کاربری و کلمه عبور اشتباه است.'

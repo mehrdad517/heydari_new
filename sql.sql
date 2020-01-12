@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.10-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             10.3.0.5771
 -- --------------------------------------------------------
@@ -39,6 +39,9 @@ CREATE TABLE IF NOT EXISTS `blog_categories` (
 
 -- Dumping data for table heydaritayeb.blog_categories: ~0 rows (approximately)
 /*!40000 ALTER TABLE `blog_categories` DISABLE KEYS */;
+INSERT INTO `blog_categories` (`content_id`, `category_id`) VALUES
+	(68, 1),
+	(68, 2);
 /*!40000 ALTER TABLE `blog_categories` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_category
@@ -60,10 +63,13 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   KEY `_lft` (`_lft`),
   KEY `_rgt` (`_rgt`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.blog_category: ~0 rows (approximately)
 /*!40000 ALTER TABLE `blog_category` DISABLE KEYS */;
+INSERT INTO `blog_category` (`value`, `label`, `slug`, `meta_title`, `meta_description`, `content`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
+	(1, 'اخبار', NULL, NULL, NULL, NULL, 1, 1, 2, NULL, '2020-01-12 12:28:03', '2020-01-12 12:28:03'),
+	(2, 'اهداف و برنامه ها', NULL, NULL, NULL, NULL, 1, 3, 4, NULL, '2020-01-12 12:28:13', '2020-01-12 12:28:13');
 /*!40000 ALTER TABLE `blog_category` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_content
@@ -83,10 +89,12 @@ CREATE TABLE IF NOT EXISTS `blog_content` (
   UNIQUE KEY `slug` (`slug`),
   KEY `FK_blog_content_users` (`created_by`),
   CONSTRAINT `FK_blog_content_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.blog_content: ~0 rows (approximately)
 /*!40000 ALTER TABLE `blog_content` DISABLE KEYS */;
+INSERT INTO `blog_content` (`id`, `slug`, `created_by`, `title`, `meta_title`, `meta_description`, `content`, `status`, `visitor`, `created_at`, `updated_at`) VALUES
+	(68, 'راه-اندازی-سایت-دکتر-حیدری-طیب', 1, 'راه اندازی سایت دکتر حیدری طیب', 'راه اندازی سایت دکتر حیدری طیب', 'راه اندازی سایت دکتر حیدری طیب', '<p>ورم ایپسوم یا طرح&zwnj;نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی&zwnj;معنی در صنعت چاپ، صفحه&zwnj;آرایی و طراحی گرافیک گفته می&zwnj;شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه&zwnj;آرایی، نخست از متن&zwnj;های آزمایشی و بی&zwnj;معنی استفاده می&zwnj;کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند</p>', 1, 0, '2020-01-12 12:30:30', '2020-01-12 12:30:30');
 /*!40000 ALTER TABLE `blog_content` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_tags
@@ -145,12 +153,7 @@ CREATE TABLE IF NOT EXISTS `domain` (
   `meta_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `introduce` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `android` tinyint(1) DEFAULT 0,
-  `ios` tinyint(1) DEFAULT 0,
   `maintenance_mode` tinyint(1) DEFAULT 0,
-  `register` tinyint(1) DEFAULT 1,
-  `basket` tinyint(1) DEFAULT 1,
-  `user_dashboard` tinyint(1) DEFAULT 1,
   `admin_panel` tinyint(1) DEFAULT 1,
   `status` tinyint(1) DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
@@ -160,8 +163,8 @@ CREATE TABLE IF NOT EXISTS `domain` (
 
 -- Dumping data for table heydaritayeb.domain: ~0 rows (approximately)
 /*!40000 ALTER TABLE `domain` DISABLE KEYS */;
-INSERT INTO `domain` (`key`, `name`, `meta_title`, `meta_description`, `introduce`, `android`, `ios`, `maintenance_mode`, `register`, `basket`, `user_dashboard`, `admin_panel`, `status`, `created_at`, `updated_at`) VALUES
-	('localhost:3000', '21212121', 'dfdfd', 'تینساسباسی', 'نسیاتنسابسکنیمب', 0, 0, 0, 1, 1, 1, 1, 1, '2019-12-07 10:11:41', '2019-12-18 12:08:41');
+INSERT INTO `domain` (`key`, `name`, `meta_title`, `meta_description`, `introduce`, `maintenance_mode`, `admin_panel`, `status`, `created_at`, `updated_at`) VALUES
+	('localhost:3000', '21212121', 'dfdfd', 'تینساسباسی', 'لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه', 0, 1, 1, '2019-12-07 10:11:41', '2020-01-12 12:37:06');
 /*!40000 ALTER TABLE `domain` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.domain_communication_channel
@@ -192,6 +195,10 @@ CREATE TABLE IF NOT EXISTS `domain_social_media` (
 
 -- Dumping data for table heydaritayeb.domain_social_media: ~0 rows (approximately)
 /*!40000 ALTER TABLE `domain_social_media` DISABLE KEYS */;
+INSERT INTO `domain_social_media` (`domain_key`, `social_media_id`, `value`) VALUES
+	('localhost:3000', 1, 'شسیشیشیش'),
+	('localhost:3000', 3, 'شسیشیشسی'),
+	('localhost:3000', 4, 'شیشسیشسیشسی');
 /*!40000 ALTER TABLE `domain_social_media` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.failed_jobs
@@ -208,6 +215,15 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Dumping data for table heydaritayeb.failed_jobs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+
+-- Dumping structure for procedure heydaritayeb.fetch_all_info
+DELIMITER //
+CREATE PROCEDURE `fetch_all_info`()
+BEGIN
+	SELECT * FROM gallery ;
+	SELECT * FROM domain LIMIT 1;
+END//
+DELIMITER ;
 
 -- Dumping structure for procedure heydaritayeb.fetch_permissions_with_access
 DELIMITER //
@@ -243,10 +259,29 @@ CREATE TABLE IF NOT EXISTS `file` (
   KEY `fileable_type` (`fileable_type`),
   KEY `FK_file_users` (`created_by`),
   CONSTRAINT `FK_file_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table heydaritayeb.file: ~0 rows (approximately)
 /*!40000 ALTER TABLE `file` DISABLE KEYS */;
+INSERT INTO `file` (`id`, `fileable_id`, `fileable_type`, `created_by`, `mime_type`, `directory`, `file`, `collection`, `order`, `size`, `link`, `created_at`, `updated_at`) VALUES
+	(258, 68, 'App\\BlogContent', 1, 'image', 'content', 'cPr0MbDVPFuMGvlW8lgpUXGfVog99Vuq0QqIBRhs.gif', 1, 7, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:31', '2020-01-12 12:30:37'),
+	(259, 68, 'App\\BlogContent', 1, 'image', 'content', 'Ex0bZidnR6FlwJIgc7mpxdIgCfLMoIk8PusZjLl0.gif', 1, 8, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:31', '2020-01-12 12:30:37'),
+	(260, 68, 'App\\BlogContent', 1, 'image', 'content', 'muQ7kwzCYUYgAgA67MxuaEnZjHVzwcvEILCkuwCt.gif', 1, 9, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:32', '2020-01-12 12:30:37'),
+	(261, 68, 'App\\BlogContent', 1, 'image', 'content', 'hy1VaPBAE93bPiwUIhW7HPM88fUne9V9v23IZSxn.gif', 0, 10, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:32', '2020-01-12 17:20:56'),
+	(262, 8, 'App\\Gallery', 1, 'image', 'gallery', 'LQagyhYqomcb5W0Pmg6rcJjY7vpKQu0ma5UM5TgA.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:19', '2020-01-12 12:33:19'),
+	(263, 8, 'App\\Gallery', 1, 'image', 'gallery', '9J6B2pJBIMFV3e79NHt0yf9AmvyrajLzzP3qse5R.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
+	(264, 8, 'App\\Gallery', 1, 'image', 'gallery', 'Dywdf4JzC15WjF4NTYp5i5xlcJnaJdBJbAtkWyoC.gif', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
+	(265, 8, 'App\\Gallery', 1, 'image', 'gallery', 'zHXILBOei6XNmkq9bs7R8R4gj3VPyR9Huf4mHbC8.gif', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
+	(266, 8, 'App\\Gallery', 1, 'image', 'gallery', 'GOQO9jXn6GHKs33lADNZeipGRpgTkV7GbfRaAdVY.gif', 1, 5, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:21', '2020-01-12 12:33:21'),
+	(267, 8, 'App\\Gallery', 1, 'image', 'gallery', '1RMPLeBwCMQhWEqbSfOK4Jo8QxA5sJ7On678d26l.gif', 1, 6, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:21', '2020-01-12 12:33:21'),
+	(268, 9, 'App\\Gallery', 1, 'image', 'gallery', 'FC3uWRvf63bTlag9eTpOJ7aylL6Mq1WZBEgzwKNf.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:34', '2020-01-12 14:00:34'),
+	(269, 9, 'App\\Gallery', 1, 'image', 'gallery', 'yagZTswIE43eQNx4jNPS7HWAhDHHDyurNnYBDTvh.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
+	(270, 9, 'App\\Gallery', 1, 'image', 'gallery', 'mI2caZuc6WOVXIfCHJwZQ6SIQkXMShzD26y7yzaI.jpeg', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
+	(271, 9, 'App\\Gallery', 1, 'image', 'gallery', 'eEahyygI1ZT1uDnHZbIDlAzSXRQmUNeDDonW1z0u.jpeg', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
+	(272, 10, 'App\\Gallery', 1, 'image', 'gallery', '2UyCKptfXOpkgoQooVq1RrBVbd8rNsqIU91nadS4.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:51', '2020-01-12 14:00:51'),
+	(273, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ftYhMN3aTPp3giUe5jnqEugG8D66TMXh0NRZZk0l.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52'),
+	(274, 10, 'App\\Gallery', 1, 'image', 'gallery', 'XYITsFZNEa0TNBrZ2gk1V6wuftZM0VChtfpqBA52.gif', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52'),
+	(275, 10, 'App\\Gallery', 1, 'image', 'gallery', 'f1UyIDRmNxEcAYfBzQtv1B9imo649p8yxM4YSyVQ.jpeg', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52');
 /*!40000 ALTER TABLE `file` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.gallery
@@ -261,10 +296,14 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   PRIMARY KEY (`id`),
   KEY `FK_gallery_users` (`created_by`),
   CONSTRAINT `FK_gallery_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.gallery: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.gallery: ~1 rows (approximately)
 /*!40000 ALTER TABLE `gallery` DISABLE KEYS */;
+INSERT INTO `gallery` (`id`, `created_by`, `title`, `status`, `is_slider`, `created_at`, `updated_at`) VALUES
+	(8, 4, 'دیدار با رهبر انقلاب', 1, 1, '2020-01-12 14:55:51', '2020-01-12 12:33:19'),
+	(9, 1, 'برند جدید تستی', 1, 0, '2020-01-12 14:00:34', '2020-01-12 17:31:35'),
+	(10, 1, 'اسلایدر جدیدx', 1, 1, '2020-01-12 14:00:51', '2020-01-12 14:00:51');
 /*!40000 ALTER TABLE `gallery` ENABLE KEYS */;
 
 -- Dumping structure for procedure heydaritayeb.map_reports
@@ -314,6 +353,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
 -- Dumping data for table heydaritayeb.oauth_access_tokens: ~9 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+	('05bd7cdba1aadc79477be19659b09bc8186b7ff69839cb222282ad67a97ae2e1bb27f71f33f032b8', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:27:48', '2020-01-12 12:27:48', '2021-01-12 12:27:48'),
 	('1211165c1fa747c169d09ca4a743bbe724d084e9ffa255b1697c3d0ff8b1ce473e3ac23328cec73e', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:23:17', '2020-01-10 21:23:17', '2021-01-10 21:23:17'),
 	('4398acebbbe2a61a066a91ff3aac209db98ec15a2651ef004fb82bcae6774ca15ad7397a7f7074af', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:57:21', '2020-01-10 20:57:21', '2021-01-10 20:57:21'),
 	('74cefcee829916e22180b39e075578f2d066df6c096e181522afbb04125da013a360f9bce56797d6', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:18:44', '2020-01-10 21:18:44', '2021-01-10 21:18:44'),
@@ -322,7 +362,9 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('93d7fbcc51976072e95b6260b492599776932da19d25977502b4ab16eecec9688f4387c4564edaa8', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:24:50', '2020-01-10 21:24:50', '2021-01-10 21:24:50'),
 	('9a77872b7bd089cfb185330c85b07fe9349c0dae1ce2ea5726264044c195357ed6bbda64efe9c450', 4, 5, 'Token Name', '[]', 0, '2020-01-10 21:27:24', '2020-01-10 21:27:24', '2021-01-10 21:27:24'),
 	('a12ce315e97fdacb0bf6ec19b2a7c750d7a56bc7fcf31da2c7fafd49c8dc43622e205bd4b15c0009', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:59:37', '2020-01-10 20:59:37', '2021-01-10 20:59:37'),
-	('ef1d237fafb302f0e8858c7c5211d250dfd5f2f7407c1ac2066cfa5fe62d95697fc25dbbac3d807c', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:52:18', '2020-01-10 20:52:18', '2021-01-10 20:52:18');
+	('b304430a67f29eaa90644360ca8413246904b993cf5153371481a3e28a16a5902153e7a5a01cdae2', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:26:40', '2020-01-12 12:26:40', '2021-01-12 12:26:40'),
+	('ef1d237fafb302f0e8858c7c5211d250dfd5f2f7407c1ac2066cfa5fe62d95697fc25dbbac3d807c', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:52:18', '2020-01-10 20:52:18', '2021-01-10 20:52:18'),
+	('f04804d0881b29528310e654ed3a7a3060a778754bee4d693ee6f6047f98b551b11933258a87efb4', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:26:58', '2020-01-12 12:26:58', '2021-01-12 12:26:58');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.oauth_auth_codes
@@ -354,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table heydaritayeb.oauth_clients: ~5 rows (approximately)
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
@@ -363,7 +405,10 @@ INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `per
 	(3, NULL, 'Laravel Password Grant Client', '0pbp2WmsP5VkpcKmrlx2xhfDu5snRwpxVQNzutOD', 'http://localhost', 0, 1, 0, '2019-11-30 22:41:34', '2019-11-30 22:41:34'),
 	(4, 1, 'mehrdad', 'AOBTYNn7I5JAmCrmX8ys9cV9VvV1GPE9PoMoE5Cq', 'http://localhost:8000/auth/callback', 0, 0, 0, '2020-01-10 20:51:49', '2020-01-10 20:51:49'),
 	(5, NULL, 'Laravel Personal Access Client', 'ytgkftCVk9Kc88V85kfqkgM4QQpBz8Gg9omJOnPy', 'http://localhost', 1, 0, 0, '2020-01-10 20:51:58', '2020-01-10 20:51:58'),
-	(6, NULL, 'Laravel Password Grant Client', 'aMI8bRo3Mx1kIiKqeMRSH0iue5XSKHIzc8jG8okn', 'http://localhost', 0, 1, 0, '2020-01-10 20:51:58', '2020-01-10 20:51:58');
+	(6, NULL, 'Laravel Password Grant Client', 'aMI8bRo3Mx1kIiKqeMRSH0iue5XSKHIzc8jG8okn', 'http://localhost', 0, 1, 0, '2020-01-10 20:51:58', '2020-01-10 20:51:58'),
+	(7, 1, 'mehrdad', '9eWC1LzMsqmbc5GVxGdr1W5E30TvRT13kNfQeFnW', 'http://localhost:8000/auth/callback', 0, 0, 0, '2020-01-12 12:23:35', '2020-01-12 12:23:35'),
+	(8, NULL, 'Laravel Personal Access Client', '2mFuM7uJMJddcTPLWqbsnbwCiznQR7ty5qdtPBfJ', 'http://localhost', 1, 0, 0, '2020-01-12 12:23:46', '2020-01-12 12:23:46'),
+	(9, NULL, 'Laravel Password Grant Client', 'bcTX8WZFLJf2Wr6zZDDFWLiMj0H6hI7yctQiUWXN', 'http://localhost', 0, 1, 0, '2020-01-12 12:23:46', '2020-01-12 12:23:46');
 /*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.oauth_personal_access_clients
@@ -374,12 +419,13 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~1 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~0 rows (approximately)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-	(2, 5, '2020-01-10 20:51:58', '2020-01-10 20:51:58');
+	(2, 5, '2020-01-10 20:51:58', '2020-01-10 20:51:58'),
+	(3, 8, '2020-01-12 12:23:46', '2020-01-12 12:23:46');
 /*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.oauth_refresh_tokens
@@ -750,13 +796,7 @@ INSERT INTO `social_media` (`id`, `title`) VALUES
 	(1, 'اینستاگرام'),
 	(2, 'کانال تلگرام'),
 	(3, 'فیس بوک'),
-	(4, 'توئیتر'),
-	(5, 'لینکدین'),
-	(6, 'گیت هاب'),
-	(7, 'گوگل پلاس'),
-	(8, 'یوتیوب'),
-	(9, 'اپارات'),
-	(10, 'ویرگول');
+	(4, 'توئیتر');
 /*!40000 ALTER TABLE `social_media` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.tag
@@ -784,10 +824,12 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   KEY `FK_ticket_ticket_category` (`category_id`),
   CONSTRAINT `FK_ticket_ticket_category` FOREIGN KEY (`category_id`) REFERENCES `ticket_category` (`value`) ON UPDATE CASCADE,
   CONSTRAINT `FK_ticket_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.ticket: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` (`id`, `created_by`, `category_id`, `title`, `status`, `created_at`, `updated_at`) VALUES
+	(62, 4, 1, 'شسیششیشیش', 1, NULL, '2020-01-12 17:48:04');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_category
@@ -808,6 +850,8 @@ CREATE TABLE IF NOT EXISTS `ticket_category` (
 
 -- Dumping data for table heydaritayeb.ticket_category: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ticket_category` DISABLE KEYS */;
+INSERT INTO `ticket_category` (`value`, `label`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
+	(1, 'نام', 1, 0, 0, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04');
 /*!40000 ALTER TABLE `ticket_category` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_conversation
@@ -827,6 +871,8 @@ CREATE TABLE IF NOT EXISTS `ticket_conversation` (
 
 -- Dumping data for table heydaritayeb.ticket_conversation: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ticket_conversation` DISABLE KEYS */;
+INSERT INTO `ticket_conversation` (`id`, `ticket_id`, `created_by`, `content`, `created_at`, `updated_at`) VALUES
+	(1, 62, 1, 'شسیسش', '2020-01-12 17:48:01', '2020-01-12 17:48:20');
 /*!40000 ALTER TABLE `ticket_conversation` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.users
@@ -854,7 +900,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table heydaritayeb.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `mobile`, `domain`, `role_key`, `name`, `status`, `validation_code`, `verify_account`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, '09361036469', 'localhost:3000', 'programmer', 'رضا رحمتی', 1, 29583, 1, '$2y$10$DDPOkc3zF2hpqM8yypYe1ueExiFTupc5P43Hhk6qzkjjxxAKLr8Dq', '$2y$10$DxjvCAVDaV9RtvKpoQK/N.O99lGGuC3zo1d9.lJDV5icvFxSkHOIS', '2019-11-30 23:43:25', '2020-01-07 18:52:15'),
+	(1, '09398624739', 'localhost:3000', 'programmer', 'رضا رحمتی', 1, 62609, 1, '$2y$10$/25eEOtjCMheLkl48YXmAevdSwO0hU9ZQmimEaZu4030fOhyj/sMi', '$2y$10$4ivE8ukfxubtQnqmi76dlO2aVWGgRqJReicMC..qMConyNRXUvoK.', '2019-11-30 23:43:25', '2020-01-12 12:26:11'),
 	(4, '09360784026', 'localhost:3000', 'super_admin', 'حسین بهرامی', 1, NULL, 0, '$2y$10$eJWUCqRd5jb7hJ7sX55YNOpZzPGxT50VET63V.WI8NpwdVId36Z06', NULL, '2020-01-10 21:27:00', '2020-01-10 21:27:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
