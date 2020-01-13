@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.10-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             10.3.0.5771
 -- --------------------------------------------------------
@@ -11,37 +11,46 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table heydaritayeb.attachment
-CREATE TABLE IF NOT EXISTS `attachment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `attachmentable_id` bigint(20) unsigned NOT NULL,
-  `attachmentable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `attachmentable_id` (`attachmentable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table heydaritayeb.attachment: ~0 rows (approximately)
-/*!40000 ALTER TABLE `attachment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `attachment` ENABLE KEYS */;
-
 -- Dumping structure for table heydaritayeb.blog_categories
 CREATE TABLE IF NOT EXISTS `blog_categories` (
   `content_id` bigint(20) unsigned NOT NULL,
   `category_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`content_id`,`category_id`),
-  KEY `FK_blog_categories_blog_category` (`category_id`),
-  CONSTRAINT `FK_blog_categories_blog_category` FOREIGN KEY (`category_id`) REFERENCES `blog_category` (`value`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_blog_categories_blog_content` FOREIGN KEY (`content_id`) REFERENCES `blog_content` (`id`) ON UPDATE CASCADE
+  PRIMARY KEY (`content_id`,`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table heydaritayeb.blog_categories: ~2 rows (approximately)
+-- Dumping data for table heydaritayeb.blog_categories: ~30 rows (approximately)
 /*!40000 ALTER TABLE `blog_categories` DISABLE KEYS */;
 INSERT INTO `blog_categories` (`content_id`, `category_id`) VALUES
-	(68, 1),
-	(68, 2);
+	(69, 1),
+	(69, 2),
+	(70, 1),
+	(70, 2),
+	(71, 1),
+	(71, 2),
+	(72, 1),
+	(72, 2),
+	(73, 1),
+	(73, 2),
+	(74, 1),
+	(74, 2),
+	(75, 1),
+	(75, 2),
+	(76, 1),
+	(76, 2),
+	(77, 1),
+	(77, 2),
+	(78, 1),
+	(78, 2),
+	(79, 1),
+	(79, 2),
+	(80, 1),
+	(80, 2),
+	(81, 1),
+	(81, 2),
+	(82, 1),
+	(82, 2),
+	(83, 1),
+	(83, 2);
 /*!40000 ALTER TABLE `blog_categories` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_category
@@ -63,13 +72,13 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   KEY `_lft` (`_lft`),
   KEY `_rgt` (`_rgt`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.blog_category: ~2 rows (approximately)
 /*!40000 ALTER TABLE `blog_category` DISABLE KEYS */;
 INSERT INTO `blog_category` (`value`, `label`, `slug`, `meta_title`, `meta_description`, `content`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
-	(1, 'اخبار', NULL, NULL, NULL, NULL, 1, 1, 2, NULL, '2020-01-12 12:28:03', '2020-01-12 12:28:03'),
-	(2, 'اهداف و برنامه ها', NULL, NULL, NULL, NULL, 1, 3, 4, NULL, '2020-01-12 12:28:13', '2020-01-12 12:28:13');
+	(1, 'اخبار', NULL, NULL, NULL, NULL, 1, 1, 2, NULL, '2020-01-13 11:14:29', '2020-01-13 11:14:29'),
+	(2, 'اهداف', NULL, NULL, NULL, NULL, 1, 3, 4, NULL, '2020-01-13 11:14:29', '2020-01-13 11:14:29');
 /*!40000 ALTER TABLE `blog_category` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_content
@@ -87,14 +96,27 @@ CREATE TABLE IF NOT EXISTS `blog_content` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
-  KEY `FK_blog_content_users` (`created_by`),
-  CONSTRAINT `FK_blog_content_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  KEY `FK_blog_content_users` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.blog_content: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.blog_content: ~15 rows (approximately)
 /*!40000 ALTER TABLE `blog_content` DISABLE KEYS */;
 INSERT INTO `blog_content` (`id`, `slug`, `created_by`, `title`, `meta_title`, `meta_description`, `content`, `status`, `visitor`, `created_at`, `updated_at`) VALUES
-	(68, 'راه-اندازی-سایت-دکتر-حیدری-طیب', 1, 'راه اندازی سایت دکتر حیدری طیب', 'راه اندازی سایت دکتر حیدری طیب', 'راه اندازی سایت دکتر حیدری طیب', '<p>ورم ایپسوم یا طرح&zwnj;نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی&zwnj;معنی در صنعت چاپ، صفحه&zwnj;آرایی و طراحی گرافیک گفته می&zwnj;شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه&zwnj;آرایی، نخست از متن&zwnj;های آزمایشی و بی&zwnj;معنی استفاده می&zwnj;کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند</p>', 1, 0, '2020-01-12 12:30:30', '2020-01-12 12:30:30');
+	(69, 'libero-cupiditate-numquam-aut-voluptatibus', 2, 'به شرط آن که بفهمی نفهمی،.', 'اغلب اوقات بی‌کارند..', 'و یا می‌ترسیدم. آن شب.', 'Necessitatibus ut ut impedit voluptate. Animi libero neque ipsum fuga dolores omnis. Natus asperiores quos dignissimos doloremque est corrupti et quam. Natus natus ex asperiores nemo voluptatem. Beatae soluta vitae qui dolores aliquid ut qui. Esse ut in sed architecto ut quis. Occaecati iste est recusandae similique voluptas dolores. Veritatis fugit deserunt deleniti similique tenetur voluptatem. Quibusdam enim accusamus est at tenetur. Sed sapiente numquam quia nobis eum sit a. Eum ut iusto repudiandae dicta id quam fugiat. Illo officiis eveniet delectus totam error earum animi culpa. Quam ipsum rerum ex maxime libero. Dolores vel incidunt cumque provident. Soluta assumenda modi similique dolorem enim. Optio aspernatur enim eos ratione. Omnis magnam quis quae amet dolorem harum. Sunt modi sed voluptatum eligendi voluptas numquam et. Labore dicta est eligendi commodi minima voluptas. Corporis quia vel ab ea aspernatur cum. Labore animi aut quo vel labore error tenetur.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(70, 'voluptatem-beatae-distinctio-aliquam-odio-ab-nam-exercitationem', 2, 'بپرسم. یک هفته‌ی تمام.', 'نفری از اولیای مدرسه.', 'نگاه چپ بکنم. احساس کردم.', 'Asperiores ipsum quasi pariatur voluptatem voluptatem mollitia sint. Vel dicta mollitia corrupti aut. Ut debitis laborum dolorem iusto qui aperiam quasi. Recusandae repudiandae quod voluptatum aliquam labore facere et. Repellendus blanditiis aperiam dolorem sequi minima. Consequatur veritatis tempore ea placeat ut. Earum qui maxime neque error tenetur ut dolore. Minima illo unde reprehenderit quia. Quia voluptatem et doloribus cumque est maiores. Cum assumenda qui molestiae rerum fuga quis ipsam. Est perspiciatis debitis voluptatem at a dolor velit laboriosam. Recusandae molestias consequatur molestiae vel. Id maiores at error nihil non nemo quasi. Soluta quia soluta eveniet iure incidunt. Architecto quas magnam in ut. Corrupti laborum consequatur iure odio molestiae expedita. Ut laborum itaque sed occaecati necessitatibus quia beatae est. Consequatur porro autem deleniti autem quasi voluptatibus. Earum laboriosam blanditiis adipisci aperiam doloremque voluptas.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(71, 'cupiditate-vero-soluta-nostrum-sunt', 2, 'هر کدام‌شان هجده ساعت درس.', 'با این حرف‌ها کاری نداشت..', 'کرد. رفتم تو و داشتند بارش.', 'Voluptatum non voluptatem eligendi. Quia dolor nihil qui fugit quo atque. Quia voluptates non mollitia ea perspiciatis quod. Harum non odit reiciendis provident. Iste dolorem modi facere praesentium ea. Ipsa molestiae aperiam dolor tenetur. Qui occaecati iure et ullam quisquam. Molestiae quidem esse iure ipsam rerum quis praesentium. Rerum ducimus delectus saepe distinctio a sunt. Ipsa quia ipsum qui repellendus laudantium sint. Illo rerum quasi quo accusamus error non asperiores. Et est corrupti consequatur hic. Consectetur voluptatem fugit voluptate dolor. Quia placeat iure repellendus magnam enim aut. Sit odio fugit voluptatem delectus est reiciendis molestias harum. At dolorem nulla consectetur velit. Non vero optio perferendis saepe et rem rem. Optio dolores placeat voluptatem odio. Deserunt voluptas ducimus amet qui ut rem. Esse harum et qui est. Illo veniam non natus ducimus ipsam ad.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(72, 'qui-consectetur-sit-ut-ea-sunt-est-fugit', 2, 'معرف شخصیت آدم است. اواخر.', 'شد. یارو با چشم‌هایش نفس.', 'بود، لطافتی بدهد و.', 'Aut dolore voluptatem doloribus et eos dolores. Rerum saepe possimus quos quia quas quia. Vero perspiciatis praesentium atque est. Voluptatem repellat deleniti doloremque dicta earum. Nihil laboriosam quia et esse eos eos dolor. Molestiae harum tempore repellendus unde rerum dolore. Neque tempora corrupti qui ut explicabo et quae. Ab rerum voluptate adipisci occaecati ullam. Excepturi id nihil accusantium iusto. Ut corrupti sit ipsa. Natus dolores accusantium autem. Corporis debitis est enim quas eos cumque dolores. Earum quos minima in vero deserunt laudantium animi. Omnis sint aliquam eveniet et non. Ratione quod sit non doloribus dolores consequatur. Occaecati porro vitae quos. Dignissimos voluptatem eaque quas magnam. Debitis impedit cupiditate praesentium. Officia amet nihil in enim placeat rerum repudiandae itaque. Dolorem voluptatem soluta aperiam. Enim architecto aperiam nisi id. Sit sint non consequatur autem voluptas sint architecto quod.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(73, 'consequuntur-quod-placeat-dolor-rerum-consectetur-voluptates-nesciunt', 2, 'را با خودش تو آورده بود، به.', 'برایشان گفتم که خیلی هم.', 'معلم دیگر از راه که.', 'Animi quo ducimus facilis. Fugiat ut quia non officia quia libero. Fugit ut accusantium voluptatem consequatur quaerat in. Similique ut nobis et voluptas eum ipsam deleniti. Ad dolores occaecati consequatur eum rem. Aliquam et modi et. Unde inventore quia quae dolore doloremque facere. Laudantium unde eos iste rerum occaecati. Ea aut voluptate aut quia quia consequuntur. Autem totam quae ea assumenda. Qui voluptatem est impedit temporibus quidem iusto nemo quia. Qui non esse libero. Inventore omnis suscipit tempore eum sapiente. Libero dolorem officiis ratione. Omnis quia dolorem hic. Eos repellendus consequuntur officiis unde. Maxime quisquam est numquam rem sapiente aut nulla nulla. Eos voluptatem aut ullam non dolores aut. Voluptatem quas delectus maiores mollitia accusantium aut vel. Nesciunt omnis cum molestiae reprehenderit. Quidem enim maxime facilis occaecati iusto.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(74, 'aspernatur-in-molestiae-iste-distinctio', 2, 'که دست ور دارند آقا. و از.', 'بوده و باز یک گردن‌کلفتی.', 'راه مدرسه‌ی ما بیفتد..', 'Voluptatem accusantium porro atque. Facilis ipsam odit iure deserunt fugiat. Magni rerum qui maxime non tenetur maiores. Ab error est corrupti consectetur perspiciatis sed. Qui excepturi non voluptas ab esse quia modi. Dolor nulla sed eaque qui minus. Dolores ea dolorum asperiores occaecati molestias. Nulla et aut dolor assumenda laborum qui architecto. Quo aspernatur rerum quo aspernatur quae eos tempora. Inventore illum id sed doloribus non molestiae et. Omnis in sed delectus est tempore vitae occaecati earum. Et quia laborum sit illo optio. Qui maiores et nam libero neque odit aut. Ut qui consectetur voluptatem consequuntur inventore ipsam. Suscipit est repellat rerum excepturi consequuntur. Quam sint voluptas amet aut vel. Eius qui assumenda dolorum voluptatem nam. Aperiam quis saepe quia vel. Laboriosam tenetur aut necessitatibus sit consectetur nihil est.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(75, 'ut-est-libero-laborum-quidem', 2, 'مفصل به امضای مدیر مدرسه.', 'حرف حسابم اینه که می‌دم.', 'آمد و همان کنار در ایستاد..', 'Consectetur aut tenetur aut iusto ut. Beatae et et aliquid sint. Natus est ad saepe cum. Aut minus quis quia sed mollitia inventore dolores excepturi. Ut aut debitis consectetur pariatur quis. Natus eveniet ex architecto non nihil est. Laborum ipsum odit sit consequatur aliquid et. Qui voluptate facere quis magni labore rerum aliquid quisquam. Atque est rem illum assumenda occaecati enim non. Sit non ut deleniti maiores. Alias delectus autem corrupti ut. Sint nam nobis sint voluptas. Dignissimos quod modi distinctio similique quia vero aut assumenda. Iure aut ducimus vel autem ea. Eius ullam repudiandae sed qui similique. Ut aut architecto in praesentium et. Aspernatur omnis aut ut ut et explicabo. Sed est in esse et sequi fugiat. Officia doloremque quae cum asperiores voluptatibus. Qui nam qui id sit et enim numquam. Blanditiis tempora eos eveniet distinctio quae. Et eveniet ad inventore animi repudiandae. Accusantium enim praesentium ipsum nisi nisi quasi voluptatibus.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(76, 'minima-doloribus-id-quasi-qui-et-cupiditate-et-beatae', 2, 'خیلی زیاد بود. فردا صبح.', 'کسی همین آیه را صادر کرد..', 'از مادر ناظم پرسیدم و.', 'Cum est qui dignissimos temporibus voluptatem numquam. Esse earum veritatis ut. Et doloremque aspernatur numquam itaque porro reiciendis. Hic aperiam qui eius libero corrupti. Est recusandae molestias explicabo velit. Voluptas nesciunt et blanditiis error. Asperiores quibusdam modi quo sit. Dignissimos dolorum id deserunt corporis est qui et ducimus. Vero consequatur consequatur culpa repudiandae expedita. Nisi voluptatem est reiciendis molestias praesentium at. Autem reprehenderit laudantium velit libero. Ea quo fuga adipisci nostrum. Quibusdam est sunt accusantium aut dicta. Velit eum saepe voluptatem eius porro aspernatur. Officia est incidunt molestiae aut amet reiciendis. Est et mollitia dolor eos nobis vero. Consequatur sapiente molestiae at non earum repudiandae iure iste. Ad id fuga itaque non.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(77, 'expedita-voluptatem-in-molestiae-praesentium-debitis-aperiam-quo', 2, 'وصول شد. منتها به جای خود و.', 'بود. مسلماً او هم نظرش این.', 'باید همین جورها تخم دوزرده.', 'Ducimus ut at delectus magni neque non tempora. Debitis ratione rerum dolores pariatur. Quam architecto hic autem quasi consequatur voluptates consequuntur. Unde vitae nemo numquam incidunt quas. Quia dolor sint debitis saepe. Beatae laudantium dolore debitis sequi. Saepe id ea rerum ut corrupti reiciendis cum. Eum iusto libero nihil debitis aut praesentium ut. Beatae quia totam occaecati est ea. Blanditiis officia dolor officiis quo rerum. Maiores veniam perspiciatis commodi aut officia ipsa earum. Nostrum magni assumenda iste iste. Hic et repellendus autem quam cupiditate. Vero quod illo illum incidunt officia laudantium aspernatur. Expedita recusandae sed ut illum. Qui totam incidunt fugiat consequatur. Beatae fuga facere molestiae in. Placeat inventore voluptas iusto. Cumque non eos necessitatibus omnis. Quo nobis omnis mollitia delectus. Qui consequatur quidem dolorem deleniti et consequuntur. Impedit laboriosam aut veniam.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(78, 'qui-sit-molestias-iure-deleniti-autem-neque-eos', 2, 'راحت بود. از این دروغ‌ها و.', 'می‌کند. گرچه چوب‌های ناظم.', 'به کارها وارد شدم. فردای.', 'Consequatur dignissimos quia rem dolor dolor quis fugiat. Blanditiis aut aperiam consequuntur dolorem placeat. Natus porro saepe itaque fuga. Ut dolores occaecati aut natus neque eligendi illum. Excepturi est illum consequuntur maxime eos fugit exercitationem. Earum ullam laudantium consequuntur magnam et nemo. Id unde consequatur temporibus incidunt deleniti. Tenetur cupiditate laborum dolorum. Omnis temporibus in consequatur eligendi quia voluptatem velit. Velit illum et non ducimus ex. Nihil voluptas in et natus. Reiciendis ea animi nemo perferendis et modi sequi et. Enim et exercitationem et cumque qui ipsa. Rem nihil aut et aut sit fuga. Magni blanditiis alias fuga odit corporis voluptas. Illo qui soluta nesciunt quidem aut. Recusandae commodi fugit quia maiores veniam. Repudiandae ut ea dignissimos nihil qui omnis sed provident. Ut debitis impedit corrupti quidem id incidunt. Et dolorem sint quia eos cum id. Et nostrum et ut unde et ex dolore.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(79, 'veniam-illum-magnam-eum', 2, 'کشید. و من یک هفته‌ی تمام.', 'چهارم. چهار تا آقا. - زحمت.', 'خرده می‌دویدی تا دو روز.', 'Non quis ratione quod aut est qui. Consequatur earum animi beatae sint est ipsam. Dolor consequatur praesentium voluptas quis error. Nam ex reprehenderit adipisci quibusdam omnis laudantium adipisci corporis. Et perspiciatis voluptatibus totam qui quaerat. Itaque est earum deserunt et et cumque necessitatibus. In blanditiis laborum nobis nihil hic. Et dolor vel explicabo. Qui consectetur nulla ea rerum aut totam nisi culpa. Aspernatur debitis sunt ut. Et aut earum harum. Ex repudiandae ipsum sunt aut dolor. Facere magni pariatur ut laudantium velit. Inventore maiores nesciunt blanditiis corporis quaerat magni inventore velit. Sint sapiente et quo quam molestiae minima quam. Quod facilis architecto deserunt nam praesentium neque. Non laboriosam non perspiciatis voluptas. Soluta dolorem eum ut. Eaque nesciunt repellendus expedita autem praesentium. Beatae sed incidunt ipsum recusandae sunt. Aliquam qui eius quidem occaecati quia.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(80, 'laborum-vel-neque-in', 2, 'آخرین معلم هم آمد. آمدم توی.', 'و حتی راه بروند. این بود که.', 'چنان از خودم بدم آمده بود و.', 'Et et accusantium sapiente molestiae tempora. Molestiae et harum dolor quo vero aut. Molestias voluptatem accusamus facilis quo optio. Harum consequatur magnam id commodi optio. Hic sapiente dolorem suscipit fugit et aspernatur. Assumenda unde eos officia aut nemo in. Necessitatibus magnam vel enim error neque consequatur. Dolorem quisquam asperiores non repudiandae. Non assumenda modi saepe est debitis. Praesentium consequatur suscipit et aut. Dolores corrupti adipisci non. Dolores voluptatum autem quod quia quidem velit quibusdam quia. Accusamus fuga at blanditiis asperiores doloribus ut. Repudiandae recusandae temporibus rerum molestias iusto rem odit. Earum corporis fugit modi in eos ratione repudiandae. Facere voluptatum voluptates mollitia veritatis rerum culpa id cum. Commodi non delectus eaque natus. Explicabo et nam hic sit tempora quidem eligendi. Provident aut aut dolorem cumque sint est quidem. Reiciendis quidem aut aut consequuntur necessitatibus maxime.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(81, 'molestias-asperiores-vel-inventore-delectus-pariatur-perspiciatis-sunt', 2, 'و بچه‌ها با هم اداره.', 'را هووی خودشان می‌دانند و.', 'یک خرده می‌دویدی تا دو سه.', 'Et veritatis consequatur qui voluptatem suscipit. Molestiae dolor aperiam consequatur est corporis possimus odio. Autem occaecati et dignissimos beatae et dolores maiores. Molestias ut rerum nemo non illum repellendus. Eos quos consequuntur et saepe numquam nesciunt sed. Laborum corrupti modi id error assumenda. Repellat impedit accusamus quos eos nemo aut. Quo cumque id facere beatae occaecati quo expedita. Minima molestiae a quam odit ipsam eaque est. Dicta quam aut libero eos nihil aut laborum hic. Voluptas impedit nesciunt aut quis libero. Sunt cum et ex. Et minima debitis quae distinctio repudiandae et reprehenderit. Dolores praesentium deserunt eos qui aperiam et voluptas. At labore perferendis neque. A vel quo porro ipsum accusamus. Quos quis modi omnis iure ducimus quo. Qui necessitatibus et facere atque eligendi. Quae quis blanditiis saepe culpa perferendis omnis et. Tempore magnam ut harum aliquam iure. Ut officia quibusdam exercitationem voluptas magni.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(82, 'totam-odit-in-est-exercitationem-ad-sequi', 2, 'محلی صحبت می‌کردند از.', 'نیستم. آخه من شنیده بودم.', 'صورتش برده بود. روی هم رفته.', 'Officia sit dolore ab voluptatem voluptatibus. Ut porro molestiae blanditiis error quia. Sed ea ipsum ea nam. Quia id totam atque asperiores nam libero. Sint sed animi quis repellendus qui nemo. Aliquam recusandae aut facilis itaque dolorem nesciunt ad. Exercitationem minus error nam molestiae minus nulla fuga eveniet. Perferendis animi assumenda vitae minima adipisci est sit. Reprehenderit possimus recusandae vitae minima. Et repudiandae cupiditate quia saepe ut explicabo. Aliquid aut ut praesentium doloribus voluptate facilis. Architecto dolorum nostrum dolores ut et. Id officia sint nihil consequatur. Nisi alias occaecati velit eos magnam tenetur. Ut molestiae dolor quibusdam unde dolore sapiente. Est quisquam quae tempora hic. Qui est consequatur laborum voluptas nam. Eum vel cumque tenetur aut. Voluptas at aliquid non consequuntur sed ea nihil accusantium.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40'),
+	(83, 'nemo-veniam-fugit-sequi', 2, 'کرد و من و پدر همان بچه‌ی.', 'غرض‌شان این بود که لابد خل.', 'شد. سی صد و خرده‌ای تومان.', 'Sapiente porro voluptatem corrupti officia sed tempora. Natus quasi commodi assumenda quasi eligendi delectus. Voluptatem qui excepturi ducimus dolor consequatur. Quia praesentium omnis neque qui omnis autem. Aut voluptatem impedit recusandae nemo nesciunt fuga. Et minus aut provident. Quo quia velit molestiae quo facere. Alias amet blanditiis debitis facere nostrum. Similique id et excepturi doloribus ut totam. Animi temporibus rem impedit quasi numquam consequatur. Quod odio accusamus omnis occaecati earum soluta. Quidem cum expedita dicta est. Iure vero atque neque. Nihil sunt at ex reprehenderit omnis magnam. Ut voluptate voluptatem quis quae. Quo quidem temporibus accusantium sed. Sint repellat quia facilis tenetur sed sed sunt. Omnis rerum velit natus quasi dolorum quas. Odio numquam vero qui sit laudantium. Vel quibusdam et qui fugit molestias assumenda dolores. Sed iusto minus velit assumenda quas et aut in. Soluta ut autem ut fugiat dolore minus.', 1, 0, '2020-01-13 11:21:40', '2020-01-13 11:21:40');
 /*!40000 ALTER TABLE `blog_content` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.blog_tags
@@ -164,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `domain` (
 -- Dumping data for table heydaritayeb.domain: ~0 rows (approximately)
 /*!40000 ALTER TABLE `domain` DISABLE KEYS */;
 INSERT INTO `domain` (`key`, `name`, `meta_title`, `meta_description`, `introduce`, `maintenance_mode`, `admin_panel`, `status`, `created_at`, `updated_at`) VALUES
-	('localhost:3000', '21212121', 'dfdfd', 'تینساسباسی', 'لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه', 0, 1, 1, '2019-12-07 10:11:41', '2020-01-12 12:37:06');
+	('localhost:3000', 'وب سایت انتخاباتی دکتر حیدری طیب', 'وب سایت انتخاباتی دکتر حیدری طیب', 'وب سایت انتخاباتی دکتر حیدری طیب', 'لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.', 0, 1, 1, '2019-12-07 10:11:41', '2020-01-13 11:10:18');
 /*!40000 ALTER TABLE `domain` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.domain_communication_channel
@@ -172,10 +194,7 @@ CREATE TABLE IF NOT EXISTS `domain_communication_channel` (
   `domain_key` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `communication_channel_id` int(11) NOT NULL,
   `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`domain_key`,`communication_channel_id`),
-  KEY `FK_communication_channel_domain_communication_channel` (`communication_channel_id`),
-  CONSTRAINT `FK_communication_channel_domain_communication_channel` FOREIGN KEY (`communication_channel_id`) REFERENCES `communication_channel` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_communication_channel_domain_domain` FOREIGN KEY (`domain_key`) REFERENCES `domain` (`key`) ON UPDATE CASCADE
+  PRIMARY KEY (`domain_key`,`communication_channel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table heydaritayeb.domain_communication_channel: ~0 rows (approximately)
@@ -187,18 +206,16 @@ CREATE TABLE IF NOT EXISTS `domain_social_media` (
   `domain_key` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `social_media_id` int(11) NOT NULL,
   `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`domain_key`,`social_media_id`),
-  KEY `FK_social_media_domain_social_media` (`social_media_id`),
-  CONSTRAINT `FK_social_media_domain_domain` FOREIGN KEY (`domain_key`) REFERENCES `domain` (`key`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_social_media_domain_social_media` FOREIGN KEY (`social_media_id`) REFERENCES `social_media` (`id`) ON UPDATE CASCADE
+  PRIMARY KEY (`domain_key`,`social_media_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table heydaritayeb.domain_social_media: ~3 rows (approximately)
+-- Dumping data for table heydaritayeb.domain_social_media: ~4 rows (approximately)
 /*!40000 ALTER TABLE `domain_social_media` DISABLE KEYS */;
 INSERT INTO `domain_social_media` (`domain_key`, `social_media_id`, `value`) VALUES
-	('localhost:3000', 1, 'شسیشیشیش'),
-	('localhost:3000', 3, 'شسیشیشسی'),
-	('localhost:3000', 4, 'شیشسیشسیشسی');
+	('localhost:3000', 1, 'https://instagram.com'),
+	('localhost:3000', 2, 'https://telegram.me'),
+	('localhost:3000', 3, 'https://facebook.com'),
+	('localhost:3000', 4, 'https://twiter.com');
 /*!40000 ALTER TABLE `domain_social_media` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.failed_jobs
@@ -215,15 +232,6 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Dumping data for table heydaritayeb.failed_jobs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
-
--- Dumping structure for procedure heydaritayeb.fetch_all_info
-DELIMITER //
-CREATE PROCEDURE `fetch_all_info`()
-BEGIN
-	SELECT * FROM gallery ;
-	SELECT * FROM domain LIMIT 1;
-END//
-DELIMITER ;
 
 -- Dumping structure for procedure heydaritayeb.fetch_permissions_with_access
 DELIMITER //
@@ -257,21 +265,22 @@ CREATE TABLE IF NOT EXISTS `file` (
   PRIMARY KEY (`id`),
   KEY `fileable_id` (`fileable_id`),
   KEY `fileable_type` (`fileable_type`),
-  KEY `FK_file_users` (`created_by`),
-  CONSTRAINT `FK_file_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=latin1;
+  KEY `FK_file_users` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=latin1;
 
--- Dumping data for table heydaritayeb.file: ~8 rows (approximately)
+-- Dumping data for table heydaritayeb.file: ~10 rows (approximately)
 /*!40000 ALTER TABLE `file` DISABLE KEYS */;
 INSERT INTO `file` (`id`, `fileable_id`, `fileable_type`, `created_by`, `mime_type`, `directory`, `file`, `collection`, `order`, `size`, `link`, `created_at`, `updated_at`) VALUES
-	(276, 10, 'App\\Gallery', 1, 'image', 'gallery', 'Z5Tjo95jfhbfNpVcnM5TKRyWWtCNHdc08X7SZx6B.jpeg', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:09', '2020-01-12 17:14:09'),
-	(277, 10, 'App\\Gallery', 1, 'image', 'gallery', 'GfsB1mMwiAntTIwjLay60v894TlNlPlXm5WxZ6rx.jpeg', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:10', '2020-01-12 17:14:10'),
-	(278, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ciSvDBN7z9w3cS7ux9s3IlfNzeejxGgioVK1WKRB.jpeg', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:11', '2020-01-12 17:14:11'),
-	(279, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ognbx7uXUG4lbZLNQUQ5DoBtESPKSCoSmKw7otxI.png', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:12', '2020-01-12 17:14:12'),
-	(280, 10, 'App\\Gallery', 1, 'image', 'gallery', 'KIUB7Iv5cZvKY2lu01ZWTnAhWQ9nbdOMHDbHuEJx.jpeg', 1, 5, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:14', '2020-01-12 17:14:14'),
-	(281, 68, 'App\\BlogContent', 1, 'image', 'content', '8QZ0SteGyULKaXoz128FZnNfBP7jYSzSIjRSvQ4v.jpeg', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:26', '2020-01-12 18:18:26'),
-	(282, 68, 'App\\BlogContent', 1, 'image', 'content', 'ei5rRBkKW3CmcK2BL8dxs4Kbmmfm4nTX5tmzpCxR.jpeg', 0, 2, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:27', '2020-01-12 18:18:27'),
-	(283, 68, 'App\\BlogContent', 1, 'image', 'content', '2I9YZobuSx9FeagyzVZnLP1EA6akP0Mm3lepmqyZ.jpeg', 0, 3, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:27', '2020-01-12 18:18:27');
+	(292, 12, 'App\\Gallery', 1, 'image', 'gallery', '8Ur7jkgB28uTyGX3RqBfeQivEVnUqwx5fmsv0oib.jpeg', 1, 6, '[500,300,200,100,50]', NULL, '2020-01-13 11:34:35', '2020-01-13 11:34:35'),
+	(293, 12, 'App\\Gallery', 1, 'image', 'gallery', 'Cp3IonNKBIpnq5A5r21MHWmmLv5aFd2GyhtAh4ZA.jpeg', 1, 7, '[500,300,200,100,50]', NULL, '2020-01-13 11:34:35', '2020-01-13 11:34:35'),
+	(294, 12, 'App\\Gallery', 1, 'image', 'gallery', 'CSIviUZDO1QnrluxxNJmiElzTAbd8pYmUdUSA7ae.jpeg', 1, 8, '[500,300,200,100,50]', NULL, '2020-01-13 11:34:36', '2020-01-13 11:34:36'),
+	(295, 12, 'App\\Gallery', 1, 'image', 'gallery', 'IbgX45QG2v1Yhs9vPdMEtqB1TwYkBPr69W0CvKHg.jpeg', 1, 9, '[500,300,200,100,50]', NULL, '2020-01-13 11:34:36', '2020-01-13 11:34:36'),
+	(296, 69, 'App\\BlogContent', 1, 'image', 'content', 'MxbMu28Re36KzudEWy7ScOLcmTFTB45gSY06fuWT.jpeg', 0, 1, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:13', '2020-01-13 11:44:13'),
+	(297, 69, 'App\\BlogContent', 1, 'image', 'content', 'jZmS0yWPKCxZz3X3y0KgR6KqXSluPgazJUH5NUhO.jpeg', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:13', '2020-01-13 11:44:13'),
+	(298, 69, 'App\\BlogContent', 1, 'image', 'content', 'QCIjdotClFhUHpM9u0kAim6IYLKa3ldl1JbzBfRz.jpeg', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:13', '2020-01-13 11:44:13'),
+	(299, 69, 'App\\BlogContent', 1, 'image', 'content', '9FMLqabpzq6ouGI8YhFIATvNCSg3tB2pXrUlQeh6.jpeg', 0, 4, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:14', '2020-01-13 11:44:14'),
+	(300, 69, 'App\\BlogContent', 1, 'image', 'content', 'A1MCqKtjMF43QUww8Kgx1AiB44XfnAef6jphZXK6.jpeg', 1, 5, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:14', '2020-01-13 11:44:14'),
+	(301, 69, 'App\\BlogContent', 1, 'image', 'content', '27vPl88KcVLELCZhbBJv38nlNLLIxu23y44yz8N7.jpeg', 1, 6, '[500,300,200,100,50]', NULL, '2020-01-13 11:44:15', '2020-01-13 11:44:15');
 /*!40000 ALTER TABLE `file` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.gallery
@@ -284,16 +293,13 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  KEY `FK_gallery_users` (`created_by`),
-  CONSTRAINT `FK_gallery_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  KEY `FK_gallery_users` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.gallery: ~3 rows (approximately)
+-- Dumping data for table heydaritayeb.gallery: ~1 rows (approximately)
 /*!40000 ALTER TABLE `gallery` DISABLE KEYS */;
 INSERT INTO `gallery` (`id`, `created_by`, `title`, `status`, `is_slider`, `created_at`, `updated_at`) VALUES
-	(8, 4, 'دیدار با رهبر انقلاب', 1, 1, '2020-01-12 14:55:51', '2020-01-12 12:33:19'),
-	(9, 1, 'برند جدید تستی', 1, 0, '2020-01-12 14:00:34', '2020-01-12 17:31:35'),
-	(10, 1, 'اسلایدر جدیدx', 1, 1, '2020-01-12 14:00:51', '2020-01-12 14:00:51');
+	(12, 1, 'اسلایدر', 1, 1, '2020-01-13 11:31:10', '2020-01-13 11:31:10');
 /*!40000 ALTER TABLE `gallery` ENABLE KEYS */;
 
 -- Dumping structure for procedure heydaritayeb.map_reports
@@ -312,12 +318,12 @@ ENGINE = MEMORY ;
 TRUNCATE map_reports;
 
 INSERT INTO map_reports (title, counter) VALUES
-('تعداد کاربران', (select count(id) from users)),
-('کاربران غیرفعال', (select count(id) from users where status = 0)),
-('عضو سایت', (select count(id) from users where role_key = 'guest')),
-('کابران سیستمی', (select count(id) from users where role_key <> 'guest')),
-('تیکت ها', (SELECT COUNT(id) FROM ticket)),
-('تیکت در انتظار', (SELECT COUNT(id) FROM ticket WHERE status = 0))
+('users', (select count(id) from users)),
+('deactive user', (select count(id) from users where status = 0)),
+('member of the site', (select count(id) from users where role_key = 'guest')),
+('system users', (select count(id) from users where role_key <> 'guest')),
+('tickets', (SELECT COUNT(id) FROM ticket)),
+('waiting tickets', (SELECT COUNT(id) FROM ticket WHERE status = 0))
 ;
 
 
@@ -340,11 +346,12 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_access_tokens: ~13 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_access_tokens: ~14 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('05bd7cdba1aadc79477be19659b09bc8186b7ff69839cb222282ad67a97ae2e1bb27f71f33f032b8', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:27:48', '2020-01-12 12:27:48', '2021-01-12 12:27:48'),
 	('1211165c1fa747c169d09ca4a743bbe724d084e9ffa255b1697c3d0ff8b1ce473e3ac23328cec73e', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:23:17', '2020-01-10 21:23:17', '2021-01-10 21:23:17'),
+	('3af9f56bd5ffc2f697c0785a13ba821fc066ba05c21d582888a752bce08bbb6826e3a9c636b56d5b', 1, 8, 'Token Name', '[]', 0, '2020-01-13 11:05:47', '2020-01-13 11:05:47', '2021-01-13 11:05:47'),
 	('4398acebbbe2a61a066a91ff3aac209db98ec15a2651ef004fb82bcae6774ca15ad7397a7f7074af', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:57:21', '2020-01-10 20:57:21', '2021-01-10 20:57:21'),
 	('74cefcee829916e22180b39e075578f2d066df6c096e181522afbb04125da013a360f9bce56797d6', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:18:44', '2020-01-10 21:18:44', '2021-01-10 21:18:44'),
 	('8ff9ac322fcce8defc15b1c63cfa2b330931cc0c693f7e03303cd0c8cc4419b05b77f94c6452b4bf', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:52:29', '2020-01-10 20:52:29', '2021-01-10 20:52:29'),
@@ -432,32 +439,6 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
 -- Dumping data for table heydaritayeb.oauth_refresh_tokens: ~0 rows (approximately)
 /*!40000 ALTER TABLE `oauth_refresh_tokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
-
--- Dumping structure for table heydaritayeb.order
-CREATE TABLE IF NOT EXISTS `order` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `increment_id` int(11) NOT NULL,
-  `discount` decimal(18,2) NOT NULL DEFAULT 0.00,
-  `post_cost` decimal(18,2) NOT NULL DEFAULT 0.00,
-  `tax` decimal(18,2) NOT NULL DEFAULT 0.00,
-  `pure_price` decimal(18,2) NOT NULL,
-  `total_price` decimal(18,2) NOT NULL,
-  `order_status` smallint(6) NOT NULL DEFAULT 0,
-  `transport_status` smallint(6) NOT NULL DEFAULT 0,
-  `delivery_status` smallint(6) NOT NULL DEFAULT 0,
-  `items_status` smallint(6) NOT NULL DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_order_user` (`user_id`),
-  KEY `order_status_created_at` (`order_status`,`created_at`),
-  CONSTRAINT `FK_order_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11038 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Dumping data for table heydaritayeb.order: ~0 rows (approximately)
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.package_type
 CREATE TABLE IF NOT EXISTS `package_type` (
@@ -555,8 +536,7 @@ INSERT INTO `permission` (`key`, `title`, `url`, `method`, `parent`, `created_at
 CREATE TABLE IF NOT EXISTS `permission_role` (
   `role_key` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `permission_key` varchar(100) COLLATE utf8_persian_ci NOT NULL,
-  PRIMARY KEY (`role_key`,`permission_key`),
-  KEY `FK_permission_role_permission` (`permission_key`)
+  PRIMARY KEY (`role_key`,`permission_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.permission_role: ~90 rows (approximately)
@@ -654,104 +634,6 @@ INSERT INTO `permission_role` (`role_key`, `permission_key`) VALUES
 	('super_admin', 'user_update');
 /*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
 
--- Dumping structure for table heydaritayeb.price_parameter
-CREATE TABLE IF NOT EXISTS `price_parameter` (
-  `value` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `label` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `_lft` int(10) unsigned NOT NULL DEFAULT 0,
-  `_rgt` int(10) unsigned NOT NULL DEFAULT 0,
-  `parent_id` int(10) unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`value`),
-  KEY `_lft` (`_lft`),
-  KEY `_rgt` (`_rgt`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
--- Dumping data for table heydaritayeb.price_parameter: ~21 rows (approximately)
-/*!40000 ALTER TABLE `price_parameter` DISABLE KEYS */;
-INSERT INTO `price_parameter` (`value`, `label`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
-	(17, 'رنگ', 1, 1, 10, NULL, '2020-01-06 00:31:33', '2020-01-09 20:21:49'),
-	(18, 'جنس', 1, 11, 16, NULL, '2020-01-05 14:05:24', '2020-01-05 14:05:24'),
-	(19, 'بسته بندی', 1, 17, 30, NULL, '2020-01-05 14:05:48', '2020-01-05 14:05:48'),
-	(20, 'گارانتی', 1, 31, 36, NULL, '2020-01-05 14:05:56', '2020-01-05 14:05:56'),
-	(21, 'حجم', 1, 37, 42, NULL, '2020-01-05 14:06:08', '2020-01-05 14:06:08'),
-	(22, 'سفید', 1, 2, 7, 17, '2020-01-05 14:06:50', '2020-01-09 20:21:49'),
-	(23, 'آبی', 1, 8, 9, 17, '2020-01-05 14:06:50', '2020-01-09 20:21:49'),
-	(24, 'چرم', 1, 12, 13, 18, '2020-01-05 14:07:10', '2020-01-05 14:07:10'),
-	(25, 'پلاستیک', 1, 14, 15, 18, '2020-01-05 14:07:10', '2020-01-05 14:07:10'),
-	(26, '25 گرمی', 1, 18, 19, 19, '2020-01-05 18:39:02', '2020-01-05 18:39:02'),
-	(27, '50 گرمی', 1, 20, 21, 19, '2020-01-05 18:39:02', '2020-01-05 18:39:02'),
-	(28, '100 گرمی', 1, 22, 23, 19, '2020-01-05 18:39:02', '2020-01-05 18:39:02'),
-	(29, '200 گرمی', 1, 24, 25, 19, '2020-01-05 18:39:02', '2020-01-05 18:39:02'),
-	(30, '500 گرمی', 1, 26, 27, 19, '2020-01-05 18:39:02', '2020-01-05 18:39:02'),
-	(31, '1 کیلویی', 1, 28, 29, 19, '2020-01-05 18:39:03', '2020-01-05 18:39:03'),
-	(32, 'سام سرویس', 1, 32, 33, 20, '2020-01-05 18:39:32', '2020-01-05 18:39:32'),
-	(33, 'گلدیران', 1, 34, 35, 20, '2020-01-05 18:39:32', '2020-01-05 18:39:32'),
-	(34, '50ml', 1, 38, 39, 21, '2020-01-05 18:39:49', '2020-01-05 18:39:49'),
-	(35, '100ml', 1, 40, 41, 21, '2020-01-05 18:39:49', '2020-01-05 18:39:49'),
-	(36, 'یخچالی', 1, 3, 4, 22, '2020-01-09 20:21:10', '2020-01-09 20:21:10'),
-	(37, 'صدفی', 1, 5, 6, 22, '2020-01-09 20:21:10', '2020-01-09 20:21:10');
-/*!40000 ALTER TABLE `price_parameter` ENABLE KEYS */;
-
--- Dumping structure for table heydaritayeb.product
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `created_by` bigint(20) unsigned NOT NULL,
-  `brand_id` bigint(20) unsigned NOT NULL,
-  `package_type_id` bigint(20) unsigned NOT NULL DEFAULT 14,
-  `slug` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `code` varchar(50) COLLATE utf8_persian_ci DEFAULT NULL,
-  `count` int(11) NOT NULL DEFAULT 0,
-  `price` int(11) NOT NULL DEFAULT 0,
-  `discount` int(11) NOT NULL DEFAULT 0,
-  `weight` int(11) NOT NULL DEFAULT 0,
-  `sales_number` int(11) NOT NULL DEFAULT 0,
-  `visitor` int(11) unsigned NOT NULL DEFAULT 0,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `content` text COLLATE utf8_persian_ci DEFAULT NULL,
-  `meta_title` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
-  `meta_description` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `products_slug_unique` (`slug`),
-  UNIQUE KEY `code` (`code`),
-  KEY `FK_products_brand` (`brand_id`),
-  KEY `FK_product_package_type` (`package_type_id`),
-  KEY `FK_product_users` (`created_by`),
-  CONSTRAINT `FK_product_brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_product_package_type` FOREIGN KEY (`package_type_id`) REFERENCES `package_type` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_product_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
--- Dumping data for table heydaritayeb.product: ~0 rows (approximately)
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-
--- Dumping structure for table heydaritayeb.product_pins
-CREATE TABLE IF NOT EXISTS `product_pins` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) unsigned NOT NULL,
-  `weight` int(11) NOT NULL DEFAULT 0,
-  `count` int(11) NOT NULL DEFAULT 0,
-  `price` int(11) NOT NULL DEFAULT 0,
-  `discount` int(11) NOT NULL DEFAULT 0,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_product_pins_product` (`product_id`),
-  CONSTRAINT `FK_product_pins_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
--- Dumping data for table heydaritayeb.product_pins: ~0 rows (approximately)
-/*!40000 ALTER TABLE `product_pins` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product_pins` ENABLE KEYS */;
-
 -- Dumping structure for table heydaritayeb.role
 CREATE TABLE IF NOT EXISTS `role` (
   `key` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -813,16 +695,13 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_ticket_users` (`created_by`),
-  KEY `FK_ticket_ticket_category` (`category_id`),
-  CONSTRAINT `FK_ticket_ticket_category` FOREIGN KEY (`category_id`) REFERENCES `ticket_category` (`value`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_ticket_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  KEY `FK_ticket_ticket_category` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.ticket: ~1 rows (approximately)
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
 INSERT INTO `ticket` (`id`, `created_by`, `category_id`, `title`, `status`, `created_at`, `updated_at`) VALUES
-	(62, 4, 1, 'شسیششیشیش', 1, NULL, '2020-01-12 17:48:04'),
-	(63, 9, 1, 'cpu', 1, '2020-01-12 21:46:10', '2020-01-13 01:19:29');
+	(64, 10, 1, 'برنامه های شما برای مجلس یازدهم چیست ؟', 1, '2020-01-13 11:57:44', '2020-01-13 15:28:10');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_category
@@ -841,7 +720,7 @@ CREATE TABLE IF NOT EXISTS `ticket_category` (
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.ticket_category: ~1 rows (approximately)
+-- Dumping data for table heydaritayeb.ticket_category: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ticket_category` DISABLE KEYS */;
 INSERT INTO `ticket_category` (`value`, `label`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
 	(1, 'بدون دسته', 1, 1, 2, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04');
@@ -857,50 +736,41 @@ CREATE TABLE IF NOT EXISTS `ticket_conversation` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_ticket_conversation_users` (`created_by`),
-  KEY `FK_ticket_conversation_ticket` (`ticket_id`),
-  CONSTRAINT `FK_ticket_conversation_ticket` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_ticket_conversation_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  KEY `FK_ticket_conversation_ticket` (`ticket_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.ticket_conversation: ~1 rows (approximately)
 /*!40000 ALTER TABLE `ticket_conversation` DISABLE KEYS */;
 INSERT INTO `ticket_conversation` (`id`, `ticket_id`, `created_by`, `content`, `created_at`, `updated_at`) VALUES
-	(1, 62, 1, 'شسیسش', '2020-01-12 17:48:01', '2020-01-12 17:48:20'),
-	(132, 63, 1, 'بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهن', '2020-01-12 21:49:29', '2020-01-12 21:49:29');
+	(133, 64, 1, 'باحضورنماینده مردم بیرجند در مجلس شورای اسلامی، معاون فرهنگی و اجتماعی و جمعی از مسئولین شب گذشته جلسه پرسش و پاسخ دانشجویی در محل تالار ولایت برگزار گردید. در ابتدای جلسه نمایندگان تشکل‌های دانشجویی سوالات خود را در زمینه مشکلات صنفی، آموزشی و.... مطرح نمودند. مرتضوی، نماینده شورای صنفی دانشجویان به ابلاغ آیین نامه جدید آموزشی و مشکلات پیش آمده برای دانشجویان ورودی 97 اشاره کرد. وی در ادامه به بیان مشکلات صنفی دانشجویان پرداخت و خواستار پیگیری موارد طرح شده کرد. زنده بودی نماینده انجمن اسلامی دانشجویان مستقل، در خصوص راه آهن، استانی شدن انتخابات و مشکلات دانشجویی در دانشگاه‌ها به طرح سوال پرداخت.', '2020-01-13 11:58:10', '2020-01-13 11:58:10');
 /*!40000 ALTER TABLE `ticket_conversation` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `mobile` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `domain` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `role_key` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `mobile` varchar(11) COLLATE utf8_persian_ci NOT NULL,
+  `role_key` varchar(50) COLLATE utf8_persian_ci NOT NULL,
+  `domain` varchar(50) COLLATE utf8_persian_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `validation_code` int(5) DEFAULT NULL,
   `verify_account` tinyint(1) NOT NULL DEFAULT 0,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_persian_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `mobile_domain` (`mobile`,`domain`),
+  UNIQUE KEY `mobile` (`mobile`),
   KEY `role_key` (`role_key`),
-  KEY `FK_users_domain` (`domain`),
-  CONSTRAINT `FK_users_domain` FOREIGN KEY (`domain`) REFERENCES `domain` (`key`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_users_role` FOREIGN KEY (`role_key`) REFERENCES `role` (`key`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `domain` (`domain`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.users: ~7 rows (approximately)
+-- Dumping data for table heydaritayeb.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `mobile`, `domain`, `role_key`, `name`, `status`, `validation_code`, `verify_account`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, '09398624739', 'localhost:3000', 'programmer', 'رضا رحمتی', 1, 62609, 1, '$2y$10$/25eEOtjCMheLkl48YXmAevdSwO0hU9ZQmimEaZu4030fOhyj/sMi', '$2y$10$4ivE8ukfxubtQnqmi76dlO2aVWGgRqJReicMC..qMConyNRXUvoK.', '2019-11-30 23:43:25', '2020-01-12 12:26:11'),
-	(4, '09360784026', 'localhost:3000', 'super_admin', 'حسین بهرامی', 1, NULL, 0, '$2y$10$eJWUCqRd5jb7hJ7sX55YNOpZzPGxT50VET63V.WI8NpwdVId36Z06', NULL, '2020-01-10 21:27:00', '2020-01-10 21:27:00'),
-	(5, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$dG3XfP6vG664kTyA7JKTze7F4obLsM1ri35m1ys1EHM4T.R0J80U6', NULL, '2020-01-12 21:41:46', '2020-01-12 21:41:46'),
-	(6, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$pArPmlkS7jlgD3y3BHIdvuoz0Cv5aw.tD7wKYoKEJ1inxGF3m8P1.', NULL, '2020-01-12 21:43:06', '2020-01-12 21:43:06'),
-	(7, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$zQ6zQSDsuxyPclFfxJ0dc.fWVujW5TwFpKhfwio8c3cBPLXmmAmd2', NULL, '2020-01-12 21:43:52', '2020-01-12 21:43:52'),
-	(8, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$DMwq.2OLxdy38el9oVwT5uSHMUXQ9kQX4fDTSjaOt8snchjDicM0e', NULL, '2020-01-12 21:44:34', '2020-01-12 21:44:34'),
-	(9, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$CzEdCyIUA9bLwZ32W1P/5OQnsduMh/VRUWVophJtpA9z1tLTMJ3zi', NULL, '2020-01-12 21:46:09', '2020-01-12 21:46:09');
+INSERT INTO `users` (`id`, `mobile`, `role_key`, `domain`, `name`, `status`, `validation_code`, `verify_account`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, '09361036469', 'programmer', 'localhost:3000', 'رضا رحمتی', 1, 62609, 1, '$2y$10$/25eEOtjCMheLkl48YXmAevdSwO0hU9ZQmimEaZu4030fOhyj/sMi', '$2y$10$4ivE8ukfxubtQnqmi76dlO2aVWGgRqJReicMC..qMConyNRXUvoK.', '2019-11-30 23:43:25', '2020-01-13 14:40:07'),
+	(2, '09360784026', 'super_admin', 'localhost:3000', 'حسین بهرامی', 1, NULL, 0, '$2y$10$eJWUCqRd5jb7hJ7sX55YNOpZzPGxT50VET63V.WI8NpwdVId36Z06', NULL, '2020-01-10 21:27:00', '2020-01-13 14:49:08'),
+	(10, '09330938099', 'guest', NULL, 'امین وطن پرست', 1, NULL, 0, '$2y$10$N0c3unaz8Td.12w19zKbjeB30Y.osU4/UV8Dmoz6U/JqHbU/vyYFG', NULL, '2020-01-13 11:57:44', '2020-01-13 11:57:44');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for trigger heydaritayeb.ticket_conversation_after_insert

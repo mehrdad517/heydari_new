@@ -94,7 +94,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/api/home').then((response) => {
+        axios.get('http://backend.heydaritayeb.ir/api/home').then((response) => {
             if (typeof response != "undefined") {
                 this.setState({
                     loading: false,
@@ -130,7 +130,7 @@ class Home extends Component {
                             buttonsDisabled
                             Infinite loop
                             autoPlay ={false}
-                            autoPlayDirection="rtl"
+                            // autoPlayDirection="rtl"
                             autoPlayInterval ={2000}
                             swipeDisabled={true}
                             responsive={{
@@ -162,7 +162,7 @@ class Home extends Component {
                                 return(
                                     <Paper  style={{ cursor: 'pointer'}} onClick={() => this.props.history.push("/article/" + g.id)} elevation={3} className='slider-box'>
                                         <h3>{index + 1}</h3>
-                                        <h6>{g.title}</h6>
+                                        <h4>{g.title}</h4>
                                         <p dangerouslySetInnerHTML={{__html: g.content.substr(0, 200)}} />
                                     </Paper>
                                 );
@@ -178,7 +178,7 @@ class Home extends Component {
                                 return(
                                     <Grid key={index} item={true} xs={12} sm={4}>
                                         <Paper style={{ cursor: 'pointer'}} onClick={() => this.props.history.push("/article/" + news.id)} className='news-box' elevation={3}>
-                                            {news.images.length && <img height={220} src={news.images[0].url}/>}
+                                            {news.images.length > 0 && <img height={220} src={news.images[0].url}/>}
                                             <h3>{news.title}</h3>
                                             <p dangerouslySetInnerHTML={{__html: news.content.substr(0, 400)}} />
                                         </Paper>

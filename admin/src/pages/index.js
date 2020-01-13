@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import ClipLoader from 'react-spinners/SyncLoader';
 import CurrencyFormat from 'react-currency-format';
+import {env} from "../env";
 ReactFC.fcRoot(FusionCharts, mscombi2d , FusionTheme);
 
 class Index extends Component {
@@ -74,24 +75,31 @@ class Index extends Component {
             <div>
                 <div className="content">
                     <Container>
-                        {Boolean(this.props.auth.permissions.report.map_reports.access) && <Box>
-                            <Grid style={{ marginTop: '25px'}} spacing={2} container={true}>
-                                {this.state.reports.length > 0 && this.state.reports.map((report, index) => {
-                                    return (
-                                        <Grid key={index} item xs={6} sm={4} md={4}>
-                                            <Paper className='animated bounceIn' style={{ padding: '10px 0px', textAlign: "center", margin: '5px 0 0 0'}}>
-                                                <Typography variant={"subtitle1"}>
-                                                    {report.title}
-                                                </Typography>
-                                                <Typography component="h4" variant={"h4"}  style={{ marginTop: '10px'}}>
-                                                    <CurrencyFormat value={report.counter} displayType={'text'} thousandSeparator={true}  />
-                                                </Typography>
-                                            </Paper>
-                                        </Grid>
-                                    );
-                                })}
-                            </Grid>
-                        </Box>}
+                        {Boolean(this.props.auth.permissions.report.map_reports.access) &&
+                        this.state.loading ? <ClipLoader
+                                css={override}
+                                loading={true}
+                                size={10}
+                                color={'#36D7B7'}
+                            /> : <Box>
+                                <Grid style={{ marginTop: '25px'}} spacing={2} container={true}>
+                                    {this.state.reports.length > 0 && this.state.reports.map((report, index) => {
+                                        return (
+                                            <Grid key={index} item xs={6} sm={4} md={4}>
+                                                <Paper className='animated bounceIn' style={{ padding: '10px 0px', textAlign: "center", margin: '5px 0 0 0'}}>
+                                                    <Typography variant={"subtitle1"}>
+                                                        {env[report.title]}
+                                                    </Typography>
+                                                    <Typography component="h4" variant={"h4"}  style={{ marginTop: '10px'}}>
+                                                        <CurrencyFormat value={report.counter} displayType={'text'} thousandSeparator={true}  />
+                                                    </Typography>
+                                                </Paper>
+                                            </Grid>
+                                        );
+                                    })}
+                                </Grid>
+                            </Box>
+                        }
                     </Container>
                 </div>
             </div>

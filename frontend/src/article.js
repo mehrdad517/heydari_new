@@ -29,7 +29,7 @@ class Article extends Component {
                 })
             }
         })
-        axios.get('http://localhost:8000/api/article/' + this.props.match.params.id).then((response) => {
+        axios.get('http://backend.heydaritayeb.ir//api/article/' + this.props.match.params.id).then((response) => {
             if (typeof response != "undefined") {
                 this.setState({
                     loading: false,
@@ -63,18 +63,14 @@ class Article extends Component {
                 <Container>
                     <div className='article'>
                         <h1>{this.state.response.title}</h1>
-                        <img onClick={()=>{this.setState({show:'flex', imgPopUp: this.state.response.images[0].url})}} src={this.state.response.images[0].url }/>
+                        <img onClick={()=>{this.setState({show:'flex', imgPopUp: this.state.response.images[0].url})}} src={this.state.response.images[0] && this.state.response.images[0].url }/>
                         <p dangerouslySetInnerHTML={{__html: this.state.response.content}} />
                         <div className='article-gallery'>
-                            <Grid container={true}>
                                 {this.state.response.gallery.map((g, i) => {
                                     return(
-                                        <Grid xs={12} sm={3}>
-                                            <img onClick={()=>{this.setState({show:'flex', imgPopUp: g.url})}} width={100 + '%'} height={200 + 'px'} src={g.url} />
-                                        </Grid>
+                                        <img onClick={()=>{this.setState({show:'flex', imgPopUp: g.url})}}  src={g.url} />
                                     );
                                 })}
-                            </Grid>
                         </div>
                     </div>
                 </Container>

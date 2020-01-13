@@ -249,6 +249,7 @@ class Setting extends Component {
                                     </Grid>
                                     <Grid item xs={12} >
                                         <TextField
+                                            multiline={true}
                                             label="معرفی سایت"
                                             variant="filled"
                                             margin='dense'

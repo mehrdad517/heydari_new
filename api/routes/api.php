@@ -18,25 +18,31 @@ use Illuminate\Support\Facades\Storage;
 Route::group(['prefix' => '/'], function () {
 
     Route::post('/ticket', function (Request $request) {
-        $id = User::create([
-            'name' => $request->get('name'),
-            'mobile' => $request->get('mobile'),
-            'password' => bcrypt(rand(0, 999)),
-            'role_key' => 'guest',
-        ]);
-        if ($id) {
 
-            $ticket = \App\Ticket::create([
-                'category_id' => 1,
-                'title' => $request->get('title'),
-                'created_by' => $id->id,
-
+        $model = User::where('mobile', $request->get('mobile'))->first();
+        if (!$model) {
+            $model = User::create([
+                'name' => $request->get('name'),
+                'mobile' => $request->get('mobile'),
+                'password' => bcrypt(rand(0, 999)),
+                'role_key' => 'guest',
             ]);
+            if ($model) {
 
-            if ($ticket) {
-                return response()->json(['status' => true, 'msg' => 'با موفقیت ثبت گردید']);
+                $ticket = \App\Ticket::create([
+                    'category_id' => 1,
+                    'title' => $request->get('title'),
+                    'created_by' => $model->id,
+
+                ]);
+
+                if ($ticket) {
+                    return response()->json(['status' => true, 'msg' => 'با موفقیت ثبت گردید']);
+                }
             }
         }
+
+
         return response()->json(['status' => false, 'msg' => 'خطایی رخ داده است']);
     });
 
@@ -116,7 +122,7 @@ Route::group(['prefix' => '/'], function () {
         if ($news) {
             foreach ($news->contents()->with(['files' => function($q) {
                 $q->orderBy('order', 'asc');
-            }])->where('status', 1)->get() as $key=>$news) {
+            }])->where('status', 1)->take(6)->get() as $key=>$news) {
                 $response['news'][$key] = [
                     'id' => $news->id,
                     'title' => $news->title,

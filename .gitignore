@@ -1,8 +1,8 @@
 .idea
 ui_backend/node_modules
-backend/vendor/*
+api/vendor/*
 ui_backend/node_modules/*
 /ui_backend/node_modules
-/backend/storage/*
-/backend/public/storage/*
-/frontend/node_modules/*
+/api/storage/*
+/api/public/storage/*
+/frontend/node_modules

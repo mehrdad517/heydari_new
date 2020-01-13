@@ -19,6 +19,8 @@ body {
 }
 
 .article img {
+  border: 1px solid #cccccc;
+  padding: 3px;
   margin-bottom: 20px;
   height: auto;
 }
@@ -29,10 +31,22 @@ body {
 }
 .article-gallery {
   margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .article-gallery img {
   border: 1px solid #cccccc;
   padding: 3px;
+  width: 250px;
+  height: 200px;
+  margin: 0 10px;
+}
+.article p {
+  display: flex;
+  text-align: justify;
+  direction: rtl;
+  justify-content: flex-end !important;
 }
 /* end of article*/
 .dfr {
@@ -106,8 +120,12 @@ header .header-box {
   margin: 0 7px;
   /*border: 1px solid #cccccc;*/
   /*border-radius: 10px;*/
-  min-height: 200px;
+  min-height: 260px;
+  height: 260px;
+  max-height: 260px;
   padding: 0 15px;
+  overflow-y: hidden;
+  padding:0 15px;
 }
 .alice-carousel__wrapper {
   padding: 5px !important;
