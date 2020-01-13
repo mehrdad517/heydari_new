@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.10-MariaDB - mariadb.org binary distribution
+-- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             10.3.0.5771
 -- --------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `blog_categories` (
   CONSTRAINT `FK_blog_categories_blog_content` FOREIGN KEY (`content_id`) REFERENCES `blog_content` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table heydaritayeb.blog_categories: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.blog_categories: ~2 rows (approximately)
 /*!40000 ALTER TABLE `blog_categories` DISABLE KEYS */;
 INSERT INTO `blog_categories` (`content_id`, `category_id`) VALUES
 	(68, 1),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.blog_category: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.blog_category: ~2 rows (approximately)
 /*!40000 ALTER TABLE `blog_category` DISABLE KEYS */;
 INSERT INTO `blog_category` (`value`, `label`, `slug`, `meta_title`, `meta_description`, `content`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
 	(1, 'اخبار', NULL, NULL, NULL, NULL, 1, 1, 2, NULL, '2020-01-12 12:28:03', '2020-01-12 12:28:03'),
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `domain_social_media` (
   CONSTRAINT `FK_social_media_domain_social_media` FOREIGN KEY (`social_media_id`) REFERENCES `social_media` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table heydaritayeb.domain_social_media: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.domain_social_media: ~3 rows (approximately)
 /*!40000 ALTER TABLE `domain_social_media` DISABLE KEYS */;
 INSERT INTO `domain_social_media` (`domain_key`, `social_media_id`, `value`) VALUES
 	('localhost:3000', 1, 'شسیشیشیش'),
@@ -259,29 +259,19 @@ CREATE TABLE IF NOT EXISTS `file` (
   KEY `fileable_type` (`fileable_type`),
   KEY `FK_file_users` (`created_by`),
   CONSTRAINT `FK_file_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=latin1;
 
--- Dumping data for table heydaritayeb.file: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.file: ~8 rows (approximately)
 /*!40000 ALTER TABLE `file` DISABLE KEYS */;
 INSERT INTO `file` (`id`, `fileable_id`, `fileable_type`, `created_by`, `mime_type`, `directory`, `file`, `collection`, `order`, `size`, `link`, `created_at`, `updated_at`) VALUES
-	(258, 68, 'App\\BlogContent', 1, 'image', 'content', 'cPr0MbDVPFuMGvlW8lgpUXGfVog99Vuq0QqIBRhs.gif', 1, 7, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:31', '2020-01-12 12:30:37'),
-	(259, 68, 'App\\BlogContent', 1, 'image', 'content', 'Ex0bZidnR6FlwJIgc7mpxdIgCfLMoIk8PusZjLl0.gif', 1, 8, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:31', '2020-01-12 12:30:37'),
-	(260, 68, 'App\\BlogContent', 1, 'image', 'content', 'muQ7kwzCYUYgAgA67MxuaEnZjHVzwcvEILCkuwCt.gif', 1, 9, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:32', '2020-01-12 12:30:37'),
-	(261, 68, 'App\\BlogContent', 1, 'image', 'content', 'hy1VaPBAE93bPiwUIhW7HPM88fUne9V9v23IZSxn.gif', 0, 10, '[500,300,200,100,50]', NULL, '2020-01-12 12:30:32', '2020-01-12 17:20:56'),
-	(262, 8, 'App\\Gallery', 1, 'image', 'gallery', 'LQagyhYqomcb5W0Pmg6rcJjY7vpKQu0ma5UM5TgA.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:19', '2020-01-12 12:33:19'),
-	(263, 8, 'App\\Gallery', 1, 'image', 'gallery', '9J6B2pJBIMFV3e79NHt0yf9AmvyrajLzzP3qse5R.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
-	(264, 8, 'App\\Gallery', 1, 'image', 'gallery', 'Dywdf4JzC15WjF4NTYp5i5xlcJnaJdBJbAtkWyoC.gif', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
-	(265, 8, 'App\\Gallery', 1, 'image', 'gallery', 'zHXILBOei6XNmkq9bs7R8R4gj3VPyR9Huf4mHbC8.gif', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:20', '2020-01-12 12:33:20'),
-	(266, 8, 'App\\Gallery', 1, 'image', 'gallery', 'GOQO9jXn6GHKs33lADNZeipGRpgTkV7GbfRaAdVY.gif', 1, 5, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:21', '2020-01-12 12:33:21'),
-	(267, 8, 'App\\Gallery', 1, 'image', 'gallery', '1RMPLeBwCMQhWEqbSfOK4Jo8QxA5sJ7On678d26l.gif', 1, 6, '[500,300,200,100,50]', NULL, '2020-01-12 12:33:21', '2020-01-12 12:33:21'),
-	(268, 9, 'App\\Gallery', 1, 'image', 'gallery', 'FC3uWRvf63bTlag9eTpOJ7aylL6Mq1WZBEgzwKNf.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:34', '2020-01-12 14:00:34'),
-	(269, 9, 'App\\Gallery', 1, 'image', 'gallery', 'yagZTswIE43eQNx4jNPS7HWAhDHHDyurNnYBDTvh.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
-	(270, 9, 'App\\Gallery', 1, 'image', 'gallery', 'mI2caZuc6WOVXIfCHJwZQ6SIQkXMShzD26y7yzaI.jpeg', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
-	(271, 9, 'App\\Gallery', 1, 'image', 'gallery', 'eEahyygI1ZT1uDnHZbIDlAzSXRQmUNeDDonW1z0u.jpeg', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:35', '2020-01-12 14:00:35'),
-	(272, 10, 'App\\Gallery', 1, 'image', 'gallery', '2UyCKptfXOpkgoQooVq1RrBVbd8rNsqIU91nadS4.gif', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:51', '2020-01-12 14:00:51'),
-	(273, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ftYhMN3aTPp3giUe5jnqEugG8D66TMXh0NRZZk0l.gif', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52'),
-	(274, 10, 'App\\Gallery', 1, 'image', 'gallery', 'XYITsFZNEa0TNBrZ2gk1V6wuftZM0VChtfpqBA52.gif', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52'),
-	(275, 10, 'App\\Gallery', 1, 'image', 'gallery', 'f1UyIDRmNxEcAYfBzQtv1B9imo649p8yxM4YSyVQ.jpeg', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 14:00:52', '2020-01-12 14:00:52');
+	(276, 10, 'App\\Gallery', 1, 'image', 'gallery', 'Z5Tjo95jfhbfNpVcnM5TKRyWWtCNHdc08X7SZx6B.jpeg', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:09', '2020-01-12 17:14:09'),
+	(277, 10, 'App\\Gallery', 1, 'image', 'gallery', 'GfsB1mMwiAntTIwjLay60v894TlNlPlXm5WxZ6rx.jpeg', 1, 2, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:10', '2020-01-12 17:14:10'),
+	(278, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ciSvDBN7z9w3cS7ux9s3IlfNzeejxGgioVK1WKRB.jpeg', 1, 3, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:11', '2020-01-12 17:14:11'),
+	(279, 10, 'App\\Gallery', 1, 'image', 'gallery', 'ognbx7uXUG4lbZLNQUQ5DoBtESPKSCoSmKw7otxI.png', 1, 4, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:12', '2020-01-12 17:14:12'),
+	(280, 10, 'App\\Gallery', 1, 'image', 'gallery', 'KIUB7Iv5cZvKY2lu01ZWTnAhWQ9nbdOMHDbHuEJx.jpeg', 1, 5, '[500,300,200,100,50]', NULL, '2020-01-12 17:14:14', '2020-01-12 17:14:14'),
+	(281, 68, 'App\\BlogContent', 1, 'image', 'content', '8QZ0SteGyULKaXoz128FZnNfBP7jYSzSIjRSvQ4v.jpeg', 1, 1, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:26', '2020-01-12 18:18:26'),
+	(282, 68, 'App\\BlogContent', 1, 'image', 'content', 'ei5rRBkKW3CmcK2BL8dxs4Kbmmfm4nTX5tmzpCxR.jpeg', 0, 2, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:27', '2020-01-12 18:18:27'),
+	(283, 68, 'App\\BlogContent', 1, 'image', 'content', '2I9YZobuSx9FeagyzVZnLP1EA6akP0Mm3lepmqyZ.jpeg', 0, 3, '[500,300,200,100,50]', NULL, '2020-01-12 18:18:27', '2020-01-12 18:18:27');
 /*!40000 ALTER TABLE `file` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.gallery
@@ -298,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   CONSTRAINT `FK_gallery_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.gallery: ~1 rows (approximately)
+-- Dumping data for table heydaritayeb.gallery: ~3 rows (approximately)
 /*!40000 ALTER TABLE `gallery` DISABLE KEYS */;
 INSERT INTO `gallery` (`id`, `created_by`, `title`, `status`, `is_slider`, `created_at`, `updated_at`) VALUES
 	(8, 4, 'دیدار با رهبر انقلاب', 1, 1, '2020-01-12 14:55:51', '2020-01-12 12:33:19'),
@@ -350,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_access_tokens: ~9 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_access_tokens: ~13 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('05bd7cdba1aadc79477be19659b09bc8186b7ff69839cb222282ad67a97ae2e1bb27f71f33f032b8', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:27:48', '2020-01-12 12:27:48', '2021-01-12 12:27:48'),
@@ -363,6 +353,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('9a77872b7bd089cfb185330c85b07fe9349c0dae1ce2ea5726264044c195357ed6bbda64efe9c450', 4, 5, 'Token Name', '[]', 0, '2020-01-10 21:27:24', '2020-01-10 21:27:24', '2021-01-10 21:27:24'),
 	('a12ce315e97fdacb0bf6ec19b2a7c750d7a56bc7fcf31da2c7fafd49c8dc43622e205bd4b15c0009', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:59:37', '2020-01-10 20:59:37', '2021-01-10 20:59:37'),
 	('b304430a67f29eaa90644360ca8413246904b993cf5153371481a3e28a16a5902153e7a5a01cdae2', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:26:40', '2020-01-12 12:26:40', '2021-01-12 12:26:40'),
+	('c7804df2be6fbfde3c436a3504f21f3710c7fb7f847af80409d934a66ff045587d4de21473d9ed17', 1, 8, 'Token Name', '[]', 0, '2020-01-12 17:12:01', '2020-01-12 17:12:01', '2021-01-12 17:12:01'),
 	('ef1d237fafb302f0e8858c7c5211d250dfd5f2f7407c1ac2066cfa5fe62d95697fc25dbbac3d807c', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:52:18', '2020-01-10 20:52:18', '2021-01-10 20:52:18'),
 	('f04804d0881b29528310e654ed3a7a3060a778754bee4d693ee6f6047f98b551b11933258a87efb4', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:26:58', '2020-01-12 12:26:58', '2021-01-12 12:26:58');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
@@ -398,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   KEY `oauth_clients_user_id_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_clients: ~5 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_clients: ~8 rows (approximately)
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
 	(2, NULL, 'Laravel Personal Access Client', '3ifOpdDKIvzzcRfIHJakMclRiOhAzj9B4zb98WCb', 'http://localhost', 1, 0, 0, '2019-11-30 22:41:34', '2019-11-30 22:41:34'),
@@ -421,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~2 rows (approximately)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(2, 5, '2020-01-10 20:51:58', '2020-01-10 20:51:58'),
@@ -787,16 +778,17 @@ INSERT INTO `role` (`key`, `title`, `full_access`, `crud`, `created_at`, `update
 CREATE TABLE IF NOT EXISTS `social_media` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) COLLATE utf8_persian_ci NOT NULL,
+  `icon` varchar(50) COLLATE utf8_persian_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.social_media: ~10 rows (approximately)
+-- Dumping data for table heydaritayeb.social_media: ~4 rows (approximately)
 /*!40000 ALTER TABLE `social_media` DISABLE KEYS */;
-INSERT INTO `social_media` (`id`, `title`) VALUES
-	(1, 'اینستاگرام'),
-	(2, 'کانال تلگرام'),
-	(3, 'فیس بوک'),
-	(4, 'توئیتر');
+INSERT INTO `social_media` (`id`, `title`, `icon`) VALUES
+	(1, 'اینستاگرام', 'flaticon-025-instagram'),
+	(2, 'کانال تلگرام', 'flaticon-029-telegram'),
+	(3, 'فیس بوک', 'flaticon-021-facebook'),
+	(4, 'توئیتر', 'flaticon-043-twitter');
 /*!40000 ALTER TABLE `social_media` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.tag
@@ -818,18 +810,19 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `title` varchar(60) COLLATE utf8_persian_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_ticket_users` (`created_by`),
   KEY `FK_ticket_ticket_category` (`category_id`),
   CONSTRAINT `FK_ticket_ticket_category` FOREIGN KEY (`category_id`) REFERENCES `ticket_category` (`value`) ON UPDATE CASCADE,
   CONSTRAINT `FK_ticket_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.ticket: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.ticket: ~1 rows (approximately)
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
 INSERT INTO `ticket` (`id`, `created_by`, `category_id`, `title`, `status`, `created_at`, `updated_at`) VALUES
-	(62, 4, 1, 'شسیششیشیش', 1, NULL, '2020-01-12 17:48:04');
+	(62, 4, 1, 'شسیششیشیش', 1, NULL, '2020-01-12 17:48:04'),
+	(63, 9, 1, 'cpu', 1, '2020-01-12 21:46:10', '2020-01-13 01:19:29');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_category
@@ -848,10 +841,10 @@ CREATE TABLE IF NOT EXISTS `ticket_category` (
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.ticket_category: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.ticket_category: ~1 rows (approximately)
 /*!40000 ALTER TABLE `ticket_category` DISABLE KEYS */;
 INSERT INTO `ticket_category` (`value`, `label`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
-	(1, 'نام', 1, 0, 0, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04');
+	(1, 'بدون دسته', 1, 1, 2, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04');
 /*!40000 ALTER TABLE `ticket_category` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_conversation
@@ -867,19 +860,20 @@ CREATE TABLE IF NOT EXISTS `ticket_conversation` (
   KEY `FK_ticket_conversation_ticket` (`ticket_id`),
   CONSTRAINT `FK_ticket_conversation_ticket` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_ticket_conversation_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.ticket_conversation: ~0 rows (approximately)
+-- Dumping data for table heydaritayeb.ticket_conversation: ~1 rows (approximately)
 /*!40000 ALTER TABLE `ticket_conversation` DISABLE KEYS */;
 INSERT INTO `ticket_conversation` (`id`, `ticket_id`, `created_by`, `content`, `created_at`, `updated_at`) VALUES
-	(1, 62, 1, 'شسیسش', '2020-01-12 17:48:01', '2020-01-12 17:48:20');
+	(1, 62, 1, 'شسیسش', '2020-01-12 17:48:01', '2020-01-12 17:48:20'),
+	(132, 63, 1, 'بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهن', '2020-01-12 21:49:29', '2020-01-12 21:49:29');
 /*!40000 ALTER TABLE `ticket_conversation` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `mobile` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `domain` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `domain` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `role_key` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
@@ -887,21 +881,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `verify_account` tinyint(1) NOT NULL DEFAULT 0,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `mobile_domain` (`mobile`,`domain`),
   KEY `role_key` (`role_key`),
   KEY `FK_users_domain` (`domain`),
   CONSTRAINT `FK_users_domain` FOREIGN KEY (`domain`) REFERENCES `domain` (`key`) ON UPDATE CASCADE,
   CONSTRAINT `FK_users_role` FOREIGN KEY (`role_key`) REFERENCES `role` (`key`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table heydaritayeb.users: ~2 rows (approximately)
+-- Dumping data for table heydaritayeb.users: ~7 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `mobile`, `domain`, `role_key`, `name`, `status`, `validation_code`, `verify_account`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(1, '09398624739', 'localhost:3000', 'programmer', 'رضا رحمتی', 1, 62609, 1, '$2y$10$/25eEOtjCMheLkl48YXmAevdSwO0hU9ZQmimEaZu4030fOhyj/sMi', '$2y$10$4ivE8ukfxubtQnqmi76dlO2aVWGgRqJReicMC..qMConyNRXUvoK.', '2019-11-30 23:43:25', '2020-01-12 12:26:11'),
-	(4, '09360784026', 'localhost:3000', 'super_admin', 'حسین بهرامی', 1, NULL, 0, '$2y$10$eJWUCqRd5jb7hJ7sX55YNOpZzPGxT50VET63V.WI8NpwdVId36Z06', NULL, '2020-01-10 21:27:00', '2020-01-10 21:27:00');
+	(4, '09360784026', 'localhost:3000', 'super_admin', 'حسین بهرامی', 1, NULL, 0, '$2y$10$eJWUCqRd5jb7hJ7sX55YNOpZzPGxT50VET63V.WI8NpwdVId36Z06', NULL, '2020-01-10 21:27:00', '2020-01-10 21:27:00'),
+	(5, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$dG3XfP6vG664kTyA7JKTze7F4obLsM1ri35m1ys1EHM4T.R0J80U6', NULL, '2020-01-12 21:41:46', '2020-01-12 21:41:46'),
+	(6, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$pArPmlkS7jlgD3y3BHIdvuoz0Cv5aw.tD7wKYoKEJ1inxGF3m8P1.', NULL, '2020-01-12 21:43:06', '2020-01-12 21:43:06'),
+	(7, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$zQ6zQSDsuxyPclFfxJ0dc.fWVujW5TwFpKhfwio8c3cBPLXmmAmd2', NULL, '2020-01-12 21:43:52', '2020-01-12 21:43:52'),
+	(8, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$DMwq.2OLxdy38el9oVwT5uSHMUXQ9kQX4fDTSjaOt8snchjDicM0e', NULL, '2020-01-12 21:44:34', '2020-01-12 21:44:34'),
+	(9, '09360784026', NULL, 'guest', 'حسین بهرامی', 1, NULL, 0, '$2y$10$CzEdCyIUA9bLwZ32W1P/5OQnsduMh/VRUWVophJtpA9z1tLTMJ3zi', NULL, '2020-01-12 21:46:09', '2020-01-12 21:46:09');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for trigger heydaritayeb.ticket_conversation_after_insert

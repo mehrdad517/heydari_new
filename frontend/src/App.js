@@ -14,6 +14,7 @@ import Router from "./router";
 import {CircularProgress} from "@material-ui/core";
 import axios from 'axios'
 import ClipLoader from "react-spinners/SyncLoader";
+
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const theme = createMuiTheme({
@@ -54,9 +55,7 @@ class App extends Component{
         return(
             <StylesProvider jss={jss}>
                 <MuiThemeProvider  theme={theme}>
-                    <Header />
                     <Router />
-                    <Footer />
                 </MuiThemeProvider>
             </StylesProvider>
         );

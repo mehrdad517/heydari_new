@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import heydaritayeb from "./asset/img/heydaritayeb.png";
 import {MuiThemeProvider} from "@material-ui/core/styles";
-import {Container, Paper, TextField} from "@material-ui/core";
+import {Container, Paper, TextField, Tooltip} from "@material-ui/core";
 import flag from './asset/img/flag.png';
 import iranr from './asset/img/iranr.png';
 import logo from './asset/img/logo.png';
@@ -18,6 +18,23 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from "@material-ui/core/Button";
 import ClipLoader from "react-spinners/SyncLoader";
 import axios from "axios";
+import Header from "./zone/header";
+import Footer from "./zone/footer";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from "@material-ui/core/IconButton";
+import Link from "react-router-dom";
+import Fab from "@material-ui/core/Fab";
+import ArrowForwardIosIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 const handleOnDragStart = (e) => e.preventDefault();
 const override = `
             transform: translate(-50%, -50%);
@@ -34,8 +51,46 @@ class Home extends Component {
         super();
         this.state = {
             loading: true,
-            response: []
+            response: [],
+            open: false,
+            form: {
+                name: '',
+                mobile: '',
+                title: ''
+            }
         }
+    }
+
+    handleChangeElement(event)
+    {
+        let form = this.state.form;
+        form[event.target.name] = event.target.value;
+        this.setState({
+            form
+        })
+
+    }
+    handleSubmit(event)
+    {
+        event.preventDefault();
+        if (this.state.form.name === '' || this.state.form.mobile === '' || this.state.form.title === '') {
+            alert('فرم را تکمیل نمایید.');
+            return;
+        }
+
+        axios.post('http://localhost:8000/api/ticket', this.state.form, {
+            headers: {
+                'Accept': 'application/json',
+            }
+        }).then((response) => {
+            if (typeof response != "undefined") {
+                alert(response.data.msg);
+                this.setState({
+                    open: false
+                })
+            }
+        });
+        console.log(this.state.form)
     }
 
     componentDidMount() {
@@ -57,15 +112,16 @@ class Home extends Component {
         if (this.state.loading) {
             return <ClipLoader
                 css={override}
-                size={20}
+                size={15}
                 color={"#123abc"}
                 loading={true}
             />
         }
         return (
             <div>
+                <Header data={this.state.response.setting} />
                 <Container>
-                    <Slider/>
+                    <Slider data={this.state.response.slider} />
                 </Container>
                 <Container>
                     <div style={{ margin: '25px 0', textAlign: 'center'}}>
@@ -102,51 +158,15 @@ class Home extends Component {
                                 }
                             }}
                             mouseTrackingEnabled>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>2</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>3</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>5</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
-                            <Paper elevation={3} className='slider-box'>
-                                <h3>1</h3>
-                                <h6>سرتیتر</h6>
-                                <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات</p>
-                            </Paper>
+                            {this.state.response.goals.map((g, index) => {
+                                return(
+                                    <Paper  style={{ cursor: 'pointer'}} onClick={() => this.props.history.push("/article/" + g.id)} elevation={3} className='slider-box'>
+                                        <h3>{index + 1}</h3>
+                                        <h6>{g.title}</h6>
+                                        <p dangerouslySetInnerHTML={{__html: g.content.substr(0, 200)}} />
+                                    </Paper>
+                                );
+                            })}
                         </AliceCarousel>
                     </div>
                 </Container>
@@ -154,13 +174,13 @@ class Home extends Component {
                     <div className='news'>
                         <h2>آخرین اخبار</h2>
                         <Grid container={true} spacing={3}>
-                            {this.state.response.news && this.state.response.news.map((news) => {
+                            {this.state.response.news && this.state.response.news.map((news, index) => {
                                 return(
-                                    <Grid item={true} xs={6} sm={4}>
-                                        <Paper className='news-box' elevation={3}>
-                                            <img src='https://media.mehrnews.com/d/2016/03/28/3/2034506.jpg?ts=1486462047399'/>
+                                    <Grid key={index} item={true} xs={12} sm={4}>
+                                        <Paper style={{ cursor: 'pointer'}} onClick={() => this.props.history.push("/article/" + news.id)} className='news-box' elevation={3}>
+                                            {news.images.length && <img height={220} src={news.images[0].url}/>}
                                             <h3>{news.title}</h3>
-                                            <p>{news.content}</p>
+                                            <p dangerouslySetInnerHTML={{__html: news.content.substr(0, 400)}} />
                                         </Paper>
                                     </Grid>
                                 );
@@ -171,6 +191,13 @@ class Home extends Component {
                 <Container>
                     <div className='faq'>
                         <h2>پرسش و پاسخ</h2>
+                        <div  style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Tooltip title='پرسش جدید'>
+                                <IconButton onClick={() => this.setState({ open : true})} color={"primary"}>
+                                    <AddCircleIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
                         {this.state.response.tickets.map((ticket, index) => {
                             return(
                                 <ExpansionPanel expanded={true}>
@@ -182,8 +209,11 @@ class Home extends Component {
                                         <Typography>{ticket.title}</Typography>
                                     </ExpansionPanelSummary>
                                     <ExpansionPanelDetails>
-
-                                        <Typography></Typography>
+                                        {ticket.conversations.map((c) => {
+                                            return(
+                                                <Typography>{c.content}</Typography>
+                                            );
+                                        })}
                                     </ExpansionPanelDetails>
                                 </ExpansionPanel>
                             );
@@ -198,6 +228,74 @@ class Home extends Component {
                         </Paper>
                     </Grid>
                 </Container>
+                <Footer data={this.state.response.setting}/>
+                <Dialog
+                    fullWidth={true}
+                    open={this.state.open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={() => this.setState({ open: false})}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        پرسش خود را مطرح کنید
+                    </DialogTitle>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <DialogContent>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} >
+                                    <TextField
+                                        label="نام و نام خانوادگی"
+                                        variant="filled"
+                                        margin='dense'
+                                        fullWidth
+                                        name='name'
+                                        onChange={this.handleChangeElement.bind(this)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <TextField
+                                        label="شماره موبایل"
+                                        variant="filled"
+                                        margin='dense'
+                                        fullWidth
+                                        name='mobile'
+                                        onChange={this.handleChangeElement.bind(this)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <TextField
+                                        label="پرسش"
+                                        variant="filled"
+                                        margin='dense'
+                                        fullWidth
+                                        name='title'
+                                        onChange={this.handleChangeElement.bind(this)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                            </Grid>
+
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => this.setState({ open: false})} color="primary">
+                                انصراف
+                            </Button>
+                            <Button type='submit' color="primary">
+                                ارسال فرم
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </Dialog>
             </div>
         );
     }

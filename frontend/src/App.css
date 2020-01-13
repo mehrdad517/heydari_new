@@ -6,6 +6,35 @@ body {
   direction: rtl;
   overflow-x: hidden;
 }
+/* article */
+.MuiPaper-elevation0 {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.article {
+  min-height: 700px;
+  border-top: 1px solid #f0f0f0;
+  width: 100%;
+  text-align: center;
+}
+
+.article img {
+  margin-bottom: 20px;
+  height: auto;
+}
+.article p:first-child {
+  text-align: justify;
+  direction: rtl;
+  line-height: 1.8;
+}
+.article-gallery {
+  margin-top: 25px;
+}
+.article-gallery img {
+  border: 1px solid #cccccc;
+  padding: 3px;
+}
+/* end of article*/
 .dfr {
   display: flex;
   flex-direction: row;
@@ -176,3 +205,21 @@ footer .copy-right {
   align-content: center;
   padding: 10px 0;
 }
+
+@media all and (max-width: 600px){
+  .flag{
+    display: none;
+  }
+  .title{
+    display: none;
+  }
+  .article img {
+    width: 50%;
+  }
+  .first-box{
+    display: none;
+  }
+}
+
+
+

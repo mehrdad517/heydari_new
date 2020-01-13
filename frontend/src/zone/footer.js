@@ -10,10 +10,15 @@ class Footer extends Component {
                         <h3>پایگاه اطلاع رسانی دکتر سید سعید حیدری طیب</h3>
                         <p>نامزد دوره یازدهم مجلس شورای اسلامی</p>
                         <ul>
-                            <li><a href="#"><span className="flaticon-025-instagram"></span></a></li>
-                            <li><a href="#"><span className="flaticon-021-facebook"></span></a></li>
-                            <li><a href="#"><span className="flaticon-029-telegram"></span></a></li>
-                            <li><a href="#"><span className="flaticon-045-linkedin"></span></a></li>
+                            {this.props.data && this.props.data.social_media.map((s, i) => {
+                                return(
+                                    <li key={i}>
+                                        <a href={s.value}>
+                                            <span style={{color:'#B3BAC8', fontWeight: 'bold'}} className={s.icon}></span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </div>

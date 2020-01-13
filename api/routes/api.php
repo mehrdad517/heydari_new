@@ -16,6 +16,68 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::group(['prefix' => '/'], function () {
+
+    Route::post('/ticket', function (Request $request) {
+        $id = User::create([
+            'name' => $request->get('name'),
+            'mobile' => $request->get('mobile'),
+            'password' => bcrypt(rand(0, 999)),
+            'role_key' => 'guest',
+        ]);
+        if ($id) {
+
+            $ticket = \App\Ticket::create([
+                'category_id' => 1,
+                'title' => $request->get('title'),
+                'created_by' => $id->id,
+
+            ]);
+
+            if ($ticket) {
+                return response()->json(['status' => true, 'msg' => 'با موفقیت ثبت گردید']);
+            }
+        }
+        return response()->json(['status' => false, 'msg' => 'خطایی رخ داده است']);
+    });
+
+    Route::get('/article/{id}', function ($id) {
+        $response = [];
+        $article = \App\BlogContent::find($id);
+        if ($article) {
+            $response = [
+                'id' => $article->id,
+                'title' => $article->title,
+                'content' => $article->content,
+                'meta_title' => $article->meta_title,
+                'meta_description' => $article->meta_description,
+                'slug' => $article->slug,
+                'visitor' => $article->visitor,
+                'created_at' => $article->created_at,
+                'images' => [],
+                'gallery' => []
+            ];
+
+            foreach ($article->files as $file) {
+                if ($file->collection) {
+                    $response['gallery'][] = [
+                        'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                        'caption' => '',
+                        'link' => $file->link ?? '',
+                    ];
+                } else {
+                    $response['images'][] = [
+                        'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                        'caption' => '',
+                        'link' => $file->link ?? '',
+                    ];
+                }
+            }
+        }
+
+        return response($response);
+    });
+
+
     Route::get('/home', function () {
         $response = [
             'setting' => [],
@@ -31,6 +93,7 @@ Route::group(['prefix' => '/'], function () {
         if ($domain) {
             $response['setting'] = [
                 'title' => $domain->name,
+                'introduce' => $domain->introduce,
                 'meta_title' => $domain->meta_title,
                 'meta_description' => $domain->meta_description,
                 'maintenance_mode' => $domain->maintenance_mode,
@@ -42,6 +105,7 @@ Route::group(['prefix' => '/'], function () {
                     $response['setting']['social_media'][] = [
                         'id' => $media->id,
                         'title' => $media->title,
+                        'icon' => $media->icon,
                         'value' => $media->pivot->value
                     ];
                 }
@@ -69,13 +133,13 @@ Route::group(['prefix' => '/'], function () {
                 foreach ($news->files as $file) {
                     if ($file->collection) {
                         $response['news'][$key]['gallery'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];
                     } else {
                         $response['news'][$key]['images'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];
@@ -105,13 +169,13 @@ Route::group(['prefix' => '/'], function () {
                 foreach ($goals->files as $file) {
                     if ($file->collection) {
                         $response['goals'][$key]['gallery'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];
                     } else {
                         $response['goals'][$key]['images'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];
@@ -132,7 +196,7 @@ Route::group(['prefix' => '/'], function () {
                 if ($gallery->is_slider) {
                     foreach ($gallery->files as $file) {
                         $response['slider'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];
@@ -141,7 +205,7 @@ Route::group(['prefix' => '/'], function () {
                     $response['galleries'][$key]['title'] = $gallery->title;
                     foreach ($gallery->files as $file) {
                         $response['galleries'][$key]['files'][] = [
-                            'url' => Storage::url($file->file),
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
                             'caption' => '',
                             'link' => $file->link ?? '',
                         ];

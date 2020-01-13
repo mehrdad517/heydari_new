@@ -5,11 +5,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {Tooltip} from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-const fadeImages = [
-    "https://www.shana.ir/old/image/2017/05/234212_orig.jpg",
-    "https://cdn.icana.ir/d/017/48093.jpg",
-    "https://hmg.mop.ir/portal/Picture/ShowPicture.aspx?ID=2570451b-10d1-4606-a290-f8e2290ce499"
-];
+import CircularProgress from "@material-ui/core/CircularProgress";
 class Slider extends Component {
     constructor(props){
         super(props);
@@ -19,54 +15,82 @@ class Slider extends Component {
         }
     }
     componentDidMount() {
-        let get=document.querySelector('.items div')
-        get.classList.add('seen')
-        this.setState({
-            Interval:setInterval(() => {
-                this.nextSlide()
-            }, 2000)
-        })
+        let get = document.querySelector('.items div');
+        if (get) {
+            get.classList.add('seen');
+          this.clear()
+        }
+    }
+    clear(){
+        this.clearinterval = setInterval(()=>{
+            this.nextSlide()
+        },3000)
+    }
+    click(){
+        clearInterval(this.clearinterval)
+        setTimeout(()=>{
+            this.clear()
+        },10)
     }
     nextSlide(){
-        clearInterval(this.state.Interval)
+
         let Images = document.querySelectorAll('.items div')
         let seen=document.querySelector('.seen')
-        seen.classList.remove('seen')
-        if (seen.nextElementSibling){
-            seen.nextElementSibling.classList.add('seen')
+        if(seen){
+            seen.classList.remove('seen')
+            if (seen.nextElementSibling){
+                seen.nextElementSibling.classList.add('seen')
+            }
+            if(!seen.nextElementSibling){
+                Images[0].classList.add('seen')
+            }
         }
-        if(!seen.nextElementSibling){
-            Images[0].classList.add('seen')
-        }
-
     }
     prevSlide(){
-        clearInterval(this.state.Interval)
+
         let Images = document.querySelectorAll('.items div')
         let seen=document.querySelector('.seen')
-        seen.classList.remove('seen')
-        if (seen.previousElementSibling){
-            seen.previousElementSibling.classList.add('seen')
+        if(seen){
+            seen.classList.remove('seen')
+            if (seen.previousElementSibling){
+                seen.previousElementSibling.classList.add('seen')
+            }
+            if(!seen.previousElementSibling){
+                Images[Images.length -2].classList.add('seen')
+            }
         }
-        if(!seen.previousElementSibling){
-            Images[Images.length -2].classList.add('seen')
-        }
+
     }
-
-
 
 
     render() {
+        console.log(this.props)
+        if (this.props.data.length === 0) {
+            return <CircularProgress color={"secondary"} size={15} />
+        }
         return (
             <div className='slider'>
                 <div className='items'>
-                    {fadeImages.map((item)=>{
+                    {this.props.data.map((item, index)=>{
                         return(
-                            <div>
-                                <img  src={item}/>
-                                <div className='slideTitle'>
-                                    <p>به گزارش "ورزش‌سه"، صدرنشینی ایران در گروه اول انتخابی المپیک قاره آسیا آن هم به شکلی کاملا مقتدرانه قابل پیش‌بینی بود،‌ اما در گروه مقابل اتفاقات غیرقابل پیش‌بینی رخ داد. استرالیا در همان دور گروهی ب</p>
-                                </div>
+                            <div key={index}>
+                                {item.link ?
+                                    <a href={item.link}>
+                                        <img src={item.url}/>
+                                        {item.caption &&
+                                        <div className='slideTitle'>
+                                            <p>{item.caption}</p>
+                                        </div>}
+                                    </a> :
+                                    <div>
+                                        <img src={item.url}/>
+                                        {item.caption &&
+                                        <div className='slideTitle'>
+                                            <p>{item.caption}</p>
+                                        </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                         )
                     })}
@@ -75,7 +99,7 @@ class Slider extends Component {
                     <Fab
                         aria-label="save"
                         color="default"
-                        onClick={()=>{this.nextSlide()}}
+                        onClick={()=>{this.nextSlide();this.click()}}
                     >
                         <ArrowForwardIosIcon />
                     </Fab>
@@ -84,7 +108,7 @@ class Slider extends Component {
                     <Fab
                         aria-label="save"
                         color="default"
-                        onClick={()=>{this.prevSlide()}}
+                        onClick={()=>{this.prevSlide();this.click()}}
                     >
                         <ArrowForwardIosIcon style={{ transform: 'rotate(180deg)' }} />
                     </Fab>
