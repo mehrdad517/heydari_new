@@ -24,8 +24,8 @@ return [
      | Storage settings
      |--------------------------------------------------------------------------
      |
-     | DebugBar stores data for session/ajax requests.
-     | You can disable this, so the debugbar stores data in headers/session,
+     | DebugBar stores data for sessionBundle/ajax requests.
+     | You can disable this, so the debugbar stores data in headers/sessionBundle,
      | but this can cause problems with large data collectors.
      | By default, file storage (in the storage folder) is used. Redis and PDO
      | can also be used. For PDO, run the package migrations first.
@@ -112,7 +112,7 @@ return [
         'route'           => true,  // Current route information
         'auth'            => false, // Display Laravel authentication status
         'gate'            => true, // Display Laravel Gate checks
-        'session'         => true,  // Display session data
+        'sessionBundle'         => true,  // Display sessionBundle data
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
         'laravel'         => false, // Laravel version and environment

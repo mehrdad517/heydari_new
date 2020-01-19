@@ -971,6 +971,97 @@ class Api {
     }
 
 
+//     regions
+    async getRegions(flat_mode = false) {
+        return axios.get( env.API[window.location.host]+ '/backend/regions', {
+            headers: this.haeders(),
+            params: {flat_mode: Boolean(flat_mode)}
+        }).then( (response) => {
+            console.log(response);
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async getRegion(id) {
+        return axios.get( env.API[window.location.host]+ '/backend/regions/' + id, {
+            headers: this.haeders(),
+        }).then( (response) => {
+            console.log(response);
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async createRegions(object) {
+        return axios.post( env.API[window.location.host]+ '/backend/regions', object ,{
+            headers: this.haeders(),
+        }).then( (response) => {
+            console.log(response);
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async updateRegion(id, object) {
+        return axios.put( env.API[window.location.host]+ '/backend/regions/' + id, object,{
+            headers: this.haeders(),
+        }).then( (response) => {
+            console.log(response);
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+
+    // blog content
+    async getMembers(object) {
+        return axios.get( env.API[window.location.host]+ '/backend/members', {
+            headers: this.haeders(),
+            params: object
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async getMember(id) {
+        return axios.get( env.API[window.location.host]+ '/backend/members/' + id, {
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async postMember(object) {
+        return axios.post( env.API[window.location.host]+ '/backend/members', object, {
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async putMember(id, object) {
+        return axios.put( env.API[window.location.host]+ '/backend/members/' + id, object, {
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+
+
 
 
 }

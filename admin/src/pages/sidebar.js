@@ -34,6 +34,8 @@ import ContactMailIcon from '@material-ui/icons/ContactMail';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
+import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
 class Sidebar extends Component {
 
     constructor(props) {
@@ -108,10 +110,24 @@ class Sidebar extends Component {
                         <ListItemText primary="نقش ها و سطوح دسترسی" />
                     </ListItem>}
                     <Divider/>
+                    {Boolean(this.props.auth.permissions.region.index.access) === true && <ListItem component={Link} onClick={this.handleClose} to='/regions'>
+                        <ListItemIcon>
+                            <MarkunreadMailboxIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="مناطق" />
+                    </ListItem>}
+                    {Boolean(this.props.auth.permissions.blog_content.index.access) === true &&
+                    <ListItem component={Link} onClick={this.handleClose} to='/members'>
+                        <ListItemIcon>
+                            <CollectionsBookmarkIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="عضوگیری" />
+                    </ListItem>}
+                    <Divider/>
                     {Boolean(this.props.auth.permissions.blog_content.index.access) === true &&
                     <ListItem component={Link} onClick={this.handleClose} to='/galleries'>
                         <ListItemIcon>
-                            <CollectionsBookmarkIcon />
+                            <PhotoAlbumIcon />
                         </ListItemIcon>
                         <ListItemText primary="گالری تصاویر و اسلایدر" />
                     </ListItem>}

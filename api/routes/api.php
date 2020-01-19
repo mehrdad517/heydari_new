@@ -91,6 +91,7 @@ Route::group(['prefix' => '/'], function () {
             'galleries' => [],
             'news' => [],
             'goals' => [],
+            'session' => [],
             'tickets' => [],
         ];
 
@@ -190,7 +191,41 @@ Route::group(['prefix' => '/'], function () {
             }
         }
 
+        $session =  \App\BlogCategory::find(15);
+        if ($session) {
+            foreach ($session->contents()->with(['files' => function($q) {
+                $q->orderBy('order', 'asc');
+            }])->where('status', 1)->get() as $key=>$session) {
+                $response['goals'][$key] = [
+                    'id' => $session->id,
+                    'title' => $session->title,
+                    'content' => $session->content,
+                    'meta_title' => $session->meta_title,
+                    'meta_description' => $session->meta_description,
+                    'slug' => $session->slug,
+                    'visitor' => $session->visitor,
+                    'created_at' => $session->created_at,
+                    'images' => [],
+                    'gallery' => []
+                ];
 
+                foreach ($session->files as $file) {
+                    if ($file->collection) {
+                        $response['session'][$key]['gallery'][] = [
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                            'caption' => '',
+                            'link' => $file->link ?? '',
+                        ];
+                    } else {
+                        $response['session'][$key]['images'][] = [
+                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                            'caption' => '',
+                            'link' => $file->link ?? '',
+                        ];
+                    }
+                }
+            }
+        }
 
 
         $galleries = \App\Gallery::with('files')
@@ -245,6 +280,22 @@ Route::group(['prefix' => '/'], function () {
 // in group url invalid symbol is -_
 Route::group(['prefix' => 'backend', 'middleware' => ['auth:api']], function () {
 
+    Route::group(['prefix' => '/regions'], function () {
+        Route::get('/', 'Backend\RegionController@index');
+        Route::post('/', 'Backend\RegionController@store');
+        Route::get('/{id}', 'Backend\RegionController@show');
+        Route::put('/{id}', 'Backend\RegionController@update');
+    });
+
+
+    Route::group(['prefix' => '/members'], function () {
+        Route::get('/', 'Backend\MemberController@index');
+        Route::post('/', 'Backend\MemberController@store');
+        Route::get('/{id}', 'Backend\MemberController@show');
+        Route::put('/{id}', 'Backend\MemberController@update');
+    });
+
+
     Route::group(['prefix' => 'filter'], function () {
 
         // Filter Tags
@@ -253,23 +304,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth:api']], function () 
                 ->where('name', 'like', '%'.$request->get('term').'%')
                 ->take(10)
                 ->get();
-            return response($response);
-        });
-
-        Route::get('/price-parameter', function (Request $request) {
-
-            $response = [];
-
-            if ($request->get('term')) {
-
-                $response =  \App\ProductPriceParameter::select('value', 'label')
-                    ->where('label', 'like', '%'.$request->get('term').'%')
-                    ->whereIn('value', \App\ProductPriceParameter::descendantsOf($request->get('parent'))->pluck('value'))
-                    ->where('status', 1)
-                    ->take(10)
-                    ->get();
-            }
-
             return response($response);
         });
 
@@ -296,19 +330,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth:api']], function () 
 
     });
 
-
-    /*
-    |-------------------------------------------------------------------------
-    |  All File And Media Router
-    |--------------------------------------------------------------------------
-    |
-    | Store File In Attachment Directory
-    | This Directory Contain All Media
-    | Before Insert In DataBase
-    | Original File Save
-    | Past Parameters Are file,Directory
-    |
-    */
     Route::group(['prefix' => 'attachment'], function () {
 
         Route::post('/', function (Request $request) { // Get Form Data

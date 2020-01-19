@@ -7,11 +7,14 @@ use Kalnoy\Nestedset\NodeTrait;
 
 class Region extends Model
 {
-
     use NodeTrait;
+
+    protected $primaryKey = 'value';
 
     protected $table = 'region';
 
-    protected $primaryKey = 'id';
+    protected $fillable=['label'];
+
+
 
 }

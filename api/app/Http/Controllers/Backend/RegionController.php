@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\ProductPriceParameter;
+use App\Region;
 use Illuminate\Http\Request;
 
-class ProductPriceParameterController extends Controller
+class RegionController extends Controller
 {
-
     public function index(Request $request)
     {
 
-        return response(ProductPriceParameter::get()->toTree());
+        if ($request->get('flat_mode') == "true") {
+            return response(Region::defaultOrder()->get());
+        }
+
+        return response(Region::get()->toTree());
     }
 
     public function store(Request $request)
@@ -33,21 +36,17 @@ class ProductPriceParameterController extends Controller
         if (!empty($selected)) {
             foreach ($selected as $item) {
                 foreach ($new_node as $new) {
-
-                    // check exist
-                    if (ProductPriceParameter::where('label', trim($new))->count() == 0 ) {
-                        $node = new ProductPriceParameter([
-                            'label' => trim($new),
-                        ]);
-                        $node->appendToNode(ProductPriceParameter::find($item));
-                        $node->save();
-                    }
+                    $node = new Region([
+                        'label' => trim($new),
+                    ]);
+                    $node->appendToNode(Region::find($item));
+                    $node->save();
                 }
             }
             return response()->json(['status' => true, 'msg' => 'با موفقیت ایجاد شدند.']);
         } else {
             foreach ($new_node as $new) {
-                ProductPriceParameter::create([
+                Region::create([
                     'label' => $new,
                 ]);
             }
@@ -56,13 +55,12 @@ class ProductPriceParameterController extends Controller
     }
 
     public function show($id){
-        $entity = ProductPriceParameter::find($id);
+        $entity = Region::find($id);
+
         $list = [
             'value' => $entity->value,
             'label' => $entity->label,
             'status' => $entity->status,
-
-
         ];
         return response($list);
     }
@@ -83,9 +81,10 @@ class ProductPriceParameterController extends Controller
             return Response()->json(['status' => false, 'msg' => $validator->errors()->first()]);
         }
 
-        ProductPriceParameter::where('value', $id)->update($request->all());
 
-        $nodes = ProductPriceParameter::descendantsAndSelf($id);
+        Region::where('value', $id)->update($request->all());
+
+        $nodes = Region::descendantsAndSelf($id);
         foreach ($nodes as $nod) {
             $nod->status = $request->get('status');
             $nod->save();

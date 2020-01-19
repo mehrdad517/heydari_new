@@ -22,6 +22,10 @@ import BlogCategoryEdit from "./blogBundle/category/edit";
 import Gallery from './galleryBundle/list'
 import GalleryCreate from './galleryBundle/create'
 import GalleryEdit from './galleryBundle/edit'
+import Region from "./regionBundle/index";
+import Member from "./memberBundle/list";
+import MemberCreate from "./memberBundle/create";
+import MemberEdit from "./memberBundle/edit";
 
 class Router extends Component {
 
@@ -57,12 +61,19 @@ class Router extends Component {
                         <Route component={BlogCategory} path='/blog/categories' exact={true}/>
                         <Route component={BlogCategoryEdit} path='/blog/categories/:id' exact={true}/>
 
+                        <Route component={Member} path='/members' exact={true}/>
+                        <Route component={MemberCreate} path='/members/create'/>
+                        <Route component={MemberEdit} path='/members/:id/edit'/>
+
                         <Route component={Gallery} path='/galleries' exact={true}/>
                         <Route component={GalleryCreate} path='/galleries/create'/>
                         <Route component={GalleryEdit} path='/galleries/:id/edit'/>
 
+
                         <Route component={Ticket} path={'/tickets'} exact={true} />
                         <Route component={TicketCategory} path='/tickets/categories' exact={true}/>
+
+                        <Route component={Region} path='/regions' exact={true}/>
 
                     </ConnectedRouter>
                 }
