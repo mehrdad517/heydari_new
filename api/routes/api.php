@@ -295,6 +295,22 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth:api']], function () 
         Route::put('/{id}', 'Backend\MemberController@update');
     });
 
+    Route::group(['prefix' => '/menu'], function () {
+
+        Route::group(['prefix' => '/hyperlinks'], function () {
+            Route::get('/', 'Backend\hyperlinkController@index');
+            Route::post('/', 'Backend\hyperlinkController@store');
+            Route::get('/{id}', 'Backend\hyperlinkController@show');
+            Route::put('/{id}', 'Backend\hyperlinkController@update');
+        });
+
+        Route::get('/', 'Backend\MenuController@index');
+        Route::post('/', 'Backend\MenuController@store');
+        Route::get('/{id}', 'Backend\MenuController@show');
+        Route::put('/{id}', 'Backend\MenuController@update');
+
+    });
+
 
     Route::group(['prefix' => 'filter'], function () {
 

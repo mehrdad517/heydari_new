@@ -1060,6 +1060,48 @@ class Api {
         })
     }
 
+    // hyper link
+    async getHyperlinks(flat_mode = false) {
+        return axios.get( env.API[window.location.host]+ '/backend/menu/hyperlinks', {
+            headers: this.haeders(),
+            params: {flat_mode: Boolean(flat_mode)}
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async getHyperlink(id) {
+        return axios.get( env.API[window.location.host]+ '/backend/menu/hyperlinks/' + id, {
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async createHyperlinks(object) {
+        return axios.post( env.API[window.location.host]+ '/backend/menu/hyperlinks', object ,{
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
+    async updateHyperlink(id, object) {
+        return axios.put( env.API[window.location.host]+ '/backend/menu/hyperlinks/' + id, object,{
+            headers: this.haeders(),
+        }).then( (response) => {
+            return response.data;
+        }).catch((error) => {
+            return this.dispatchResponse(error.response)
+        })
+    }
+
 
 
 

@@ -26,6 +26,7 @@ import Region from "./regionBundle/index";
 import Member from "./memberBundle/list";
 import MemberCreate from "./memberBundle/create";
 import MemberEdit from "./memberBundle/edit";
+import Hyperlink from "./menuBundle/hyperlink";
 
 class Router extends Component {
 
@@ -52,7 +53,9 @@ class Router extends Component {
 
                         <Route component={UserList} path='/users' exact={true}/>
                         <Route component={Acl} path='/users/access/control/list'/>
+
                         <Route component={Setting} path={'/setting'} exact={true}/>
+                        <Route component={Hyperlink} path='/menu/hyperlink' exact={true}/>
 
                         <Route component={BlogContent} path='/blog/contents' exact={true}/>
                         <Route component={ContentCreate} path='/blog/contents/create'/>

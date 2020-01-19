@@ -8,32 +8,19 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Switch from "@material-ui/core/Switch";
-import InboxIcon from '@material-ui/icons/Inbox';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
 import SettingsInputCompositeIcon from '@material-ui/icons/SettingsInputComposite';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import GroupIcon from '@material-ui/icons/Group';
-import EditAttributesIcon from '@material-ui/icons/EditAttributes';
-import BrandingWatermarkIcon from '@material-ui/icons/BrandingWatermark';
 import LockIcon from '@material-ui/icons/Lock';
-import StoreIcon from '@material-ui/icons/Store';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LocalParkingIcon from '@material-ui/icons/LocalParking';
-import AndroidIcon from '@material-ui/icons/Android';
-import AppleIcon from '@material-ui/icons/Apple';
 import {CircularProgress} from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import {toast} from "react-toastify";
 import Api from "../api";
-import {AuthSetting, stickySetting} from "../actions/auth";
+import {stickySetting} from "../actions/auth";
 import AppsIcon from '@material-ui/icons/Apps';
-import PostAddIcon from '@material-ui/icons/PostAdd';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
 import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
 class Sidebar extends Component {
@@ -157,6 +144,13 @@ class Sidebar extends Component {
                     </ListItem>
                     }
                     <Divider />
+                    {Boolean(this.props.auth.permissions.domain.update.access) === true &&
+                    <ListItem component={Link} onClick={this.handleClose} to='/menu/hyperlink'>
+                        <ListItemIcon>
+                            <SettingsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="هایپرلینک" />
+                    </ListItem>}
                     {Boolean(this.props.auth.permissions.domain.update.access) === true &&
                     <ListItem component={Link} onClick={this.handleClose} to='/setting'>
                         <ListItemIcon>

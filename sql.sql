@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.10-MariaDB - mariadb.org binary distribution
+-- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             10.3.0.5771
 -- --------------------------------------------------------
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.blog_category: ~4 rows (approximately)
+-- Dumping data for table heydaritayeb.blog_category: ~3 rows (approximately)
 /*!40000 ALTER TABLE `blog_category` DISABLE KEYS */;
 INSERT INTO `blog_category` (`value`, `label`, `slug`, `meta_title`, `meta_description`, `content`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
 	(1, 'اخبار', NULL, NULL, NULL, NULL, 1, 1, 2, NULL, '2020-01-12 12:28:03', '2020-01-12 12:28:03'),
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   KEY `created_by` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.member: ~177 rows (approximately)
+-- Dumping data for table heydaritayeb.member: ~179 rows (approximately)
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 INSERT INTO `member` (`id`, `region_id`, `user_id`, `name`, `family`, `mobile`, `code`, `address`, `gender`, `created_at`, `updated_at`) VALUES
 	(15, 899, 4, 'ابو احسن', 'بهرامی', '09187376017', '333333333332', 'کرمانشاه دادگستری', 'male', '2018-01-15 18:09:53', '2020-01-19 11:19:47'),
@@ -502,12 +502,13 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_access_tokens: ~19 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_access_tokens: ~21 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('05bd7cdba1aadc79477be19659b09bc8186b7ff69839cb222282ad67a97ae2e1bb27f71f33f032b8', 1, 8, 'Token Name', '[]', 0, '2020-01-12 12:27:48', '2020-01-12 12:27:48', '2021-01-12 12:27:48'),
 	('103fb38e9b6f845c0d636cc0618ad5bf7e34588e4d2e586f659d36cfb75bc042fc12f3f0bf422029', 1, 10, 'Token Name', '[]', 1, '2020-01-19 08:18:56', '2020-01-19 08:18:56', '2021-01-19 08:18:56'),
 	('1211165c1fa747c169d09ca4a743bbe724d084e9ffa255b1697c3d0ff8b1ce473e3ac23328cec73e', 1, 5, 'Token Name', '[]', 1, '2020-01-10 21:23:17', '2020-01-10 21:23:17', '2021-01-10 21:23:17'),
+	('2e527601dfcea81d2aff5ba3d6629207c4844a4d0c679cd1b0c15171a48caa68011481a186577934', 1, 10, 'Token Name', '[]', 0, '2020-01-19 17:04:12', '2020-01-19 17:04:12', '2021-01-19 17:04:12'),
 	('4398acebbbe2a61a066a91ff3aac209db98ec15a2651ef004fb82bcae6774ca15ad7397a7f7074af', 2, 5, 'Token Name', '[]', 0, '2020-01-10 20:57:21', '2020-01-10 20:57:21', '2021-01-10 20:57:21'),
 	('452b8c8b968be523beebf608dcfbb165e6c50fec5ffb04cd8476e0632b28cd87518eb3b8bd61e937', 1, 10, 'Token Name', '[]', 0, '2020-01-19 08:16:41', '2020-01-19 08:16:41', '2021-01-19 08:16:41'),
 	('51c2077686083bebfd66d514ccf29ad36849fb4dcf5d940338e5ae28fa48ea23284826489e3a2b79', 1, 10, 'Token Name', '[]', 0, '2020-01-19 08:17:07', '2020-01-19 08:17:07', '2021-01-19 08:17:07'),
@@ -558,7 +559,7 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   KEY `oauth_clients_user_id_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_clients: ~8 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_clients: ~10 rows (approximately)
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
 	(2, NULL, 'Laravel Personal Access Client', '3ifOpdDKIvzzcRfIHJakMclRiOhAzj9B4zb98WCb', 'http://localhost', 1, 0, 0, '2019-11-30 22:41:34', '2019-11-30 22:41:34'),
@@ -583,7 +584,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~2 rows (approximately)
+-- Dumping data for table heydaritayeb.oauth_personal_access_clients: ~3 rows (approximately)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(2, 5, '2020-01-10 20:51:58', '2020-01-10 20:51:58'),
@@ -673,7 +674,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   KEY `parent` (`parent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
--- Dumping data for table heydaritayeb.permission: ~4 rows (approximately)
+-- Dumping data for table heydaritayeb.permission: ~61 rows (approximately)
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
 INSERT INTO `permission` (`key`, `title`, `url`, `method`, `parent`, `created_at`, `updated_at`) VALUES
 	('attachment_delete', 'permissions.attachment delete', '/api/backend/attachment', 'DELETE', 'attachment', '2020-01-10 21:16:08', '2020-01-10 21:16:08'),
@@ -913,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table heydaritayeb.role: ~6 rows (approximately)
+-- Dumping data for table heydaritayeb.role: ~7 rows (approximately)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `role` (`key`, `title`, `full_access`, `crud`, `created_at`, `updated_at`) VALUES
 	('admin', 'ادمین', 1, 1, '2019-11-29 13:56:16', '2019-11-29 13:56:16'),
@@ -990,12 +991,13 @@ CREATE TABLE IF NOT EXISTS `ticket_category` (
   KEY `_lft` (`_lft`),
   KEY `_rgt` (`_rgt`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 -- Dumping data for table heydaritayeb.ticket_category: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ticket_category` DISABLE KEYS */;
 INSERT INTO `ticket_category` (`value`, `label`, `status`, `_lft`, `_rgt`, `parent_id`, `created_at`, `updated_at`) VALUES
-	(1, 'بدون دسته', 1, 1, 2, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04');
+	(1, 'بدون دسته', 1, 1, 2, NULL, '2020-01-12 17:47:03', '2020-01-12 17:47:04'),
+	(17, 'لینک دوستان', 1, 3, 4, NULL, '2020-01-19 21:04:11', '2020-01-19 21:04:11');
 /*!40000 ALTER TABLE `ticket_category` ENABLE KEYS */;
 
 -- Dumping structure for table heydaritayeb.ticket_conversation
