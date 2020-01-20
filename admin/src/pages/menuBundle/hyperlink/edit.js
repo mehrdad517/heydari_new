@@ -123,6 +123,22 @@ class HyperlinkEdit extends Component {
                                 <MenuItem value={0}>غیرفعال</MenuItem>
                             </TextField>
                         </Grid>
+                        <Grid item xs={12} >
+                            <TextField
+                                style={{ textAlign: "left"}}
+                                label="لینک"
+                                variant="filled"
+                                margin='dense'
+                                value={this.state.form.external_link}
+                                fullWidth
+                                name='external_link'
+                                onChange={this.handleChangeElement.bind(this)}
+                                helperText={'در صورت خالی بودن لینک به محتوای داخلی لینک میشود.کافیست با همان عنوان لینک یک مطلب ایجاد کنید و اسلاگ را تغییر ندهید.'}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
                     </Grid>
                 </DialogContent>
                 <DialogActions>

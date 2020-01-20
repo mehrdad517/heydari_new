@@ -31,6 +31,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import {env} from "./env";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -78,7 +79,7 @@ class Home extends Component {
             return;
         }
 
-        axios.post('http://localhost:8000/api/ticket', this.state.form, {
+        axios.post(env.API[window.location.host] + '/ticket', this.state.form, {
             headers: {
                 'Accept': 'application/json',
             }
@@ -94,7 +95,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://backend.heydaritayeb.ir/api/home').then((response) => {
+        axios.get(env.API[window.location.host]  + '/home').then((response) => {
             if (typeof response != "undefined") {
                 this.setState({
                     loading: false,
@@ -172,6 +173,24 @@ class Home extends Component {
                 </Container>
                 <Container>
                     <div className='news'>
+                        <h2>آخرین نشست ها و جلسات</h2>
+                        <Grid container={true} spacing={3}>
+                            {this.state.response.session && this.state.response.session.map((session, index) => {
+                                return(
+                                    <Grid key={index} item={true} xs={12} sm={4}>
+                                        <Paper style={{ cursor: 'pointer'}} onClick={() => this.props.history.push("/article/" + session.id)} className='news-box' elevation={3}>
+                                            {session.images.length > 0 && <img height={220} src={session.images[0].url}/>}
+                                            <h3>{session.title}</h3>
+                                            <p dangerouslySetInnerHTML={{__html: session.content.substr(0, 400)}} />
+                                        </Paper>
+                                    </Grid>
+                                );
+                            })}
+                        </Grid>
+                    </div>
+                </Container>
+                <Container>
+                    <div className='news'>
                         <h2>آخرین اخبار</h2>
                         <Grid container={true} spacing={3}>
                             {this.state.response.news && this.state.response.news.map((news, index) => {
@@ -191,6 +210,7 @@ class Home extends Component {
                 <Container>
                     <div className='faq'>
                         <h2>پرسش و پاسخ</h2>
+                        <p style={{ textAlign: 'center', position: 'relative', top: '-30px'}}>درخواست های مردمی و انتقادات خود را در میان بگذارید</p>
                         <div  style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Tooltip title='پرسش جدید'>
                                 <IconButton onClick={() => this.setState({ open : true})} color={"primary"}>
@@ -200,7 +220,7 @@ class Home extends Component {
                         </div>
                         {this.state.response.tickets.map((ticket, index) => {
                             return(
-                                <ExpansionPanel expanded={true}>
+                                <ExpansionPanel>
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1bh-content"
@@ -228,7 +248,7 @@ class Home extends Component {
                         </Paper>
                     </Grid>
                 </Container>
-                <Footer data={this.state.response.setting}/>
+                <Footer analytic={this.state.response.analytic} hyperlink={this.state.response.hyper_link} data={this.state.response.setting}/>
                 <Dialog
                     fullWidth={true}
                     open={this.state.open}

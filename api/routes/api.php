@@ -33,7 +33,6 @@ Route::group(['prefix' => '/'], function () {
                     'category_id' => 1,
                     'title' => $request->get('title'),
                     'created_by' => $model->id,
-
                 ]);
 
                 if ($ticket) {
@@ -48,7 +47,12 @@ Route::group(['prefix' => '/'], function () {
 
     Route::get('/article/{id}', function ($id) {
         $response = [];
-        $article = \App\BlogContent::find($id);
+        if (is_numeric($id)) {
+            $article = \App\BlogContent::find($id);
+        } else {
+            $article = \App\BlogContent::where('slug', $id)->first();
+        }
+
         if ($article) {
             $response = [
                 'id' => $article->id,
@@ -80,199 +84,211 @@ Route::group(['prefix' => '/'], function () {
             }
         }
 
+
         return response($response);
     });
 
 
-    Route::get('/home', function () {
-        $response = [
-            'setting' => [],
-            'slider' => [],
-            'galleries' => [],
-            'news' => [],
-            'goals' => [],
-            'session' => [],
-            'tickets' => [],
-        ];
+    Route::group(['prefix' => '/'], function () {
+        \Illuminate\Support\Facades\DB::table('analytic')->insert([
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+        Route::get('/home', function () {
+            $response = [
+                'setting' => [],
+                'slider' => [],
+                'galleries' => [],
+                'news' => [],
+                'goals' => [],
+                'session' => [],
+                'tickets' => [],
+                'hyper_link' => \App\Hyperlink::get()->toTree(),
+                'analytic' => [
+                    'all' => \Illuminate\Support\Facades\DB::table('analytic')->count(),
+                    'today' =>  \Illuminate\Support\Facades\DB::table('analytic')->where('created_at', date('Y-m-d'))->count(),
+                    'online' => rand(0, 10)
+                ]
+            ];
 
-        $domain = \App\Domain::first();
+            $domain = \App\Domain::first();
 
-        if ($domain) {
-            $response['setting'] = [
-                'title' => $domain->name,
-                'introduce' => $domain->introduce,
-                'meta_title' => $domain->meta_title,
-                'meta_description' => $domain->meta_description,
-                'maintenance_mode' => $domain->maintenance_mode,
-                'social_media' => []
-            ] ;
+            if ($domain) {
+                $response['setting'] = [
+                    'title' => $domain->name,
+                    'introduce' => $domain->introduce,
+                    'meta_title' => $domain->meta_title,
+                    'meta_description' => $domain->meta_description,
+                    'maintenance_mode' => $domain->maintenance_mode,
+                    'social_media' => []
+                ] ;
 
-            if ($domain->socialMedias) {
-                foreach ($domain->socialMedias as $media) {
-                    $response['setting']['social_media'][] = [
-                        'id' => $media->id,
-                        'title' => $media->title,
-                        'icon' => $media->icon,
-                        'value' => $media->pivot->value
+                if ($domain->socialMedias) {
+                    foreach ($domain->socialMedias as $media) {
+                        $response['setting']['social_media'][] = [
+                            'id' => $media->id,
+                            'title' => $media->title,
+                            'icon' => $media->icon,
+                            'value' => $media->pivot->value
+                        ];
+                    }
+                }
+            }
+
+            $news = \App\BlogCategory::find(1);
+            if ($news) {
+                foreach ($news->contents()->with(['files' => function($q) {
+                    $q->orderBy('order', 'asc');
+                }])->where('status', 1)->take(6)->get() as $key=>$news) {
+                    $response['news'][$key] = [
+                        'id' => $news->id,
+                        'title' => $news->title,
+                        'content' => $news->content,
+                        'meta_title' => $news->meta_title,
+                        'meta_description' => $news->meta_description,
+                        'slug' => $news->slug,
+                        'visitor' => $news->visitor,
+                        'created_at' => $news->created_at,
+                        'images' => [],
+                        'gallery' => []
+                    ];
+
+                    foreach ($news->files as $file) {
+                        if ($file->collection) {
+                            $response['news'][$key]['gallery'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        } else {
+                            $response['news'][$key]['images'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $goals =  \App\BlogCategory::find(2);
+            if ($goals) {
+                foreach ($goals->contents()->with(['files' => function($q) {
+                    $q->orderBy('order', 'asc');
+                }])->where('status', 1)->get() as $key=>$goals) {
+                    $response['goals'][$key] = [
+                        'id' => $goals->id,
+                        'title' => $goals->title,
+                        'content' => $goals->content,
+                        'meta_title' => $goals->meta_title,
+                        'meta_description' => $goals->meta_description,
+                        'slug' => $goals->slug,
+                        'visitor' => $goals->visitor,
+                        'created_at' => $goals->created_at,
+                        'images' => [],
+                        'gallery' => []
+                    ];
+
+                    foreach ($goals->files as $file) {
+                        if ($file->collection) {
+                            $response['goals'][$key]['gallery'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        } else {
+                            $response['goals'][$key]['images'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $session =  \App\BlogCategory::find(15);
+            if ($session) {
+                foreach ($session->contents()->with(['files' => function($q) {
+                    $q->orderBy('order', 'asc');
+                }])->where('status', 1)->get() as $key=>$session) {
+                    $response['session'][$key] = [
+                        'id' => $session->id,
+                        'title' => $session->title,
+                        'content' => $session->content,
+                        'meta_title' => $session->meta_title,
+                        'meta_description' => $session->meta_description,
+                        'slug' => $session->slug,
+                        'visitor' => $session->visitor,
+                        'created_at' => $session->created_at,
+                        'images' => [],
+                        'gallery' => []
+                    ];
+
+                    foreach ($session->files as $file) {
+                        if ($file->collection) {
+                            $response['session'][$key]['gallery'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        } else {
+                            $response['session'][$key]['images'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        }
+                    }
+                }
+            }
+
+
+            $galleries = \App\Gallery::with('files')
+                ->where('status', 1)
+                ->get();
+
+            if ($galleries) {
+                foreach ($galleries as $key => $gallery) {
+                    if ($gallery->is_slider) {
+                        foreach ($gallery->files as $file) {
+                            $response['slider'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        }
+                    } else {
+                        $response['galleries'][$key]['title'] = $gallery->title;
+                        foreach ($gallery->files as $file) {
+                            $response['galleries'][$key]['files'][] = [
+                                'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
+                                'caption' => '',
+                                'link' => $file->link ?? '',
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $tickets = \App\Ticket::with(['conversations'])->where('status', 1)->orderBy('created_at', 'desc')->get();
+
+            foreach ($tickets as $key=>$ticket) {
+                $response['tickets'][$key] = [
+                    'title' => $ticket->title,
+                    'conversations' => []
+                ];
+
+                foreach ($ticket->conversations as $conversation) {
+                    $response['tickets'][$key]['conversations'][] = [
+                        'content' => $conversation->content,
+                        'created_at' => $conversation->created_at
                     ];
                 }
             }
-        }
 
-        $news = \App\BlogCategory::find(1);
-        if ($news) {
-            foreach ($news->contents()->with(['files' => function($q) {
-                $q->orderBy('order', 'asc');
-            }])->where('status', 1)->take(6)->get() as $key=>$news) {
-                $response['news'][$key] = [
-                    'id' => $news->id,
-                    'title' => $news->title,
-                    'content' => $news->content,
-                    'meta_title' => $news->meta_title,
-                    'meta_description' => $news->meta_description,
-                    'slug' => $news->slug,
-                    'visitor' => $news->visitor,
-                    'created_at' => $news->created_at,
-                    'images' => [],
-                    'gallery' => []
-                ];
+            return response($response);
 
-                foreach ($news->files as $file) {
-                    if ($file->collection) {
-                        $response['news'][$key]['gallery'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    } else {
-                        $response['news'][$key]['images'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    }
-                }
-            }
-        }
-
-        $goals =  \App\BlogCategory::find(2);
-        if ($goals) {
-            foreach ($goals->contents()->with(['files' => function($q) {
-                $q->orderBy('order', 'asc');
-            }])->where('status', 1)->get() as $key=>$goals) {
-                $response['goals'][$key] = [
-                    'id' => $goals->id,
-                    'title' => $goals->title,
-                    'content' => $goals->content,
-                    'meta_title' => $goals->meta_title,
-                    'meta_description' => $goals->meta_description,
-                    'slug' => $goals->slug,
-                    'visitor' => $goals->visitor,
-                    'created_at' => $goals->created_at,
-                    'images' => [],
-                    'gallery' => []
-                ];
-
-                foreach ($goals->files as $file) {
-                    if ($file->collection) {
-                        $response['goals'][$key]['gallery'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    } else {
-                        $response['goals'][$key]['images'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    }
-                }
-            }
-        }
-
-        $session =  \App\BlogCategory::find(15);
-        if ($session) {
-            foreach ($session->contents()->with(['files' => function($q) {
-                $q->orderBy('order', 'asc');
-            }])->where('status', 1)->get() as $key=>$session) {
-                $response['goals'][$key] = [
-                    'id' => $session->id,
-                    'title' => $session->title,
-                    'content' => $session->content,
-                    'meta_title' => $session->meta_title,
-                    'meta_description' => $session->meta_description,
-                    'slug' => $session->slug,
-                    'visitor' => $session->visitor,
-                    'created_at' => $session->created_at,
-                    'images' => [],
-                    'gallery' => []
-                ];
-
-                foreach ($session->files as $file) {
-                    if ($file->collection) {
-                        $response['session'][$key]['gallery'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    } else {
-                        $response['session'][$key]['images'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    }
-                }
-            }
-        }
-
-
-        $galleries = \App\Gallery::with('files')
-            ->where('status', 1)
-            ->get();
-
-        if ($galleries) {
-            foreach ($galleries as $key => $gallery) {
-                if ($gallery->is_slider) {
-                    foreach ($gallery->files as $file) {
-                        $response['slider'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    }
-                } else {
-                    $response['galleries'][$key]['title'] = $gallery->title;
-                    foreach ($gallery->files as $file) {
-                        $response['galleries'][$key]['files'][] = [
-                            'url' => Storage::url($file->directory . '/' . $file->fileable_id . '/' . $file->file),
-                            'caption' => '',
-                            'link' => $file->link ?? '',
-                        ];
-                    }
-                }
-            }
-        }
-
-        $tickets = \App\Ticket::with(['conversations'])->where('status', 1)->orderBy('created_at', 'desc')->get();
-
-        foreach ($tickets as $key=>$ticket) {
-            $response['tickets'][$key] = [
-                'title' => $ticket->title,
-                'conversations' => []
-            ];
-
-            foreach ($ticket->conversations as $conversation) {
-                $response['tickets'][$key]['conversations'][] = [
-                    'content' => $conversation->content,
-                    'created_at' => $conversation->created_at
-                ];
-            }
-        }
-
-        return response($response);
-
+        });
     });
 });
 
@@ -298,10 +314,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth:api']], function () 
     Route::group(['prefix' => '/menu'], function () {
 
         Route::group(['prefix' => '/hyperlinks'], function () {
-            Route::get('/', 'Backend\hyperlinkController@index');
-            Route::post('/', 'Backend\hyperlinkController@store');
-            Route::get('/{id}', 'Backend\hyperlinkController@show');
-            Route::put('/{id}', 'Backend\hyperlinkController@update');
+            Route::get('/', 'Backend\HyperlinkController@index');
+            Route::post('/', 'Backend\HyperlinkController@store');
+            Route::get('/{id}', 'Backend\HyperlinkController@show');
+            Route::put('/{id}', 'Backend\HyperlinkController@update');
         });
 
         Route::get('/', 'Backend\MenuController@index');

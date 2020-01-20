@@ -11,7 +11,7 @@ class Hyperlink extends Model
 
     protected $primaryKey = 'value';
 
-    protected $table = 'footer_link';
+    protected $table = 'menu_hyperlink';
 
     protected $fillable=['label'];
 

@@ -23,6 +23,8 @@ import ContactMailIcon from '@material-ui/icons/ContactMail';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
 import PhotoAlbumIcon from '@material-ui/icons/PhotoAlbum';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+
 class Sidebar extends Component {
 
     constructor(props) {
@@ -103,15 +105,15 @@ class Sidebar extends Component {
                         </ListItemIcon>
                         <ListItemText primary="مناطق" />
                     </ListItem>}
-                    {Boolean(this.props.auth.permissions.blog_content.index.access) === true &&
+                    {Boolean(this.props.auth.permissions.member.index.access) === true &&
                     <ListItem component={Link} onClick={this.handleClose} to='/members'>
                         <ListItemIcon>
-                            <CollectionsBookmarkIcon />
+                            <GroupAddIcon />
                         </ListItemIcon>
                         <ListItemText primary="عضوگیری" />
                     </ListItem>}
                     <Divider/>
-                    {Boolean(this.props.auth.permissions.blog_content.index.access) === true &&
+                    {Boolean(this.props.auth.permissions.gallery.index.access) === true &&
                     <ListItem component={Link} onClick={this.handleClose} to='/galleries'>
                         <ListItemIcon>
                             <PhotoAlbumIcon />
